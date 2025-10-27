@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькуляторы | Шпаргалка инвестора</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <h1 class="logo">Шпаргалка инвестора</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="calculators.html" class="active">Калькуляторы</a></li>
+          <li><a href="articles.html">Статьи</a></li>
+          <li><a href="trading.html">Симулятор</a></li>
+          <li><a href="about.html">О проекте</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Калькуляторы</h2>
+
+    <div class="calculators-grid">
+
+      <!-- Кредитный калькулятор -->
+      <section class="calc reveal">
+        <h3>Кредитный калькулятор</h3>
+        <form id="creditForm">
+          <label>Сумма кредита (₽):</label>
+          <input type="number" id="amount" required>
+
+          <label>Срок (месяцев):</label>
+          <input type="number" id="months" required>
+
+          <label>Годовая ставка (%):</label>
+          <input type="number" id="rate" required step="0.1">
+
+          <button type="submit">Рассчитать</button>
+        </form>
+        <div id="result" class="result"></div>
+      </section>
+
+      <!-- Калькулятор вкладов -->
+      <section class="calc reveal">
+        <h3>Калькулятор вкладов</h3>
+        <form id="depositForm">
+          <label>Сумма вклада (₽):</label>
+          <input type="number" id="depositAmount" required>
+
+          <label>Срок (месяцев):</label>
+          <input type="number" id="depositMonths" required>
+
+          <label>Годовая ставка (%):</label>
+          <input type="number" id="depositRate" required step="0.1">
+
+          <button type="submit">Рассчитать</button>
+        </form>
+        <div id="depositResult" class="result"></div>
+      </section>
+
+      <!-- Калькулятор инвестиций -->
+      <section class="calc reveal">
+        <h3>Калькулятор инвестиций</h3>
+        <form id="investForm">
+          <label>Начальная сумма (₽):</label>
+          <input type="number" id="investAmount" required>
+
+          <label>Ежемесячное пополнение (₽):</label>
+          <input type="number" id="investMonthly" required>
+
+          <label>Срок (лет):</label>
+          <input type="number" id="investYears" required>
+
+          <label>Среднегодовая доходность (%):</label>
+          <input type="number" id="investRate" required step="0.1">
+
+          <button type="submit">Рассчитать</button>
+        </form>
+        <div id="investResult" class="result"></div>
+      </section>
+
+      <!-- Калькулятор ипотеки -->
+      <section class="calc reveal">
+        <h3>Ипотечный калькулятор</h3>
+        <form id="mortgageForm">
+          <label>Сумма ипотеки (₽):</label>
+          <input type="number" id="mortgageAmount" required>
+
+          <label>Срок (лет):</label>
+          <input type="number" id="mortgageYears" required>
+
+          <label>Годовая ставка (%):</label>
+          <input type="number" id="mortgageRate" required step="0.1">
+
+          <button type="submit">Рассчитать</button>
+        </form>
+        <div id="mortgageResult" class="result"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-columns">
+        <div class="footer-col">
+          <h4>О проекте</h4>
+          <p>«Шпаргалка инвестора» — учебный сайт с калькуляторами, статьями и симулятором торговли для начинающих инвесторов.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Навигация</h4>
+          <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="calculators.html">Калькуляторы</a></li>
+            <li><a href="articles.html">Статьи</a></li>
+            <li><a href="trading.html">Симулятор</a></li>
+            <li><a href="about.html">О проекте</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Контакты</h4>
+          <p>Email: Chibo_bk33@top-academy.ru</p>
+          <p>Телефон: +7 (999) 123-45-67</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Шпаргалка инвестора. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  // Кредитный калькулятор
+  document.getElementById("creditForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let amount = parseFloat(document.getElementById("amount").value);
+    let months = parseInt(document.getElementById("months").value);
+    let rate = parseFloat(document.getElementById("rate").value) / 100 / 12;
+
+    if (amount > 0 && months > 0 && rate >= 0) {
+      let payment = amount * (rate * Math.pow(1 + rate, months)) / (Math.pow(1 + rate, months) - 1);
+      let total = payment * months;
+      let overpay = total - amount;
+
+      document.getElementById("result").innerHTML = `
+        <table>
+          <tr><td>Ежемесячный платёж</td><td>${payment.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Общая сумма выплат</td><td>${total.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Переплата</td><td>${overpay.toFixed(2)}&nbsp;₽</td></tr>
+        </table>
+      `;
+    }
+  });
+
+  // Калькулятор вкладов
+  document.getElementById("depositForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let amount = parseFloat(document.getElementById("depositAmount").value);
+    let months = parseInt(document.getElementById("depositMonths").value);
+    let rate = parseFloat(document.getElementById("depositRate").value) / 100 / 12;
+
+    if (amount > 0 && months > 0 && rate >= 0) {
+      let total = amount * Math.pow(1 + rate, months);
+      let profit = total - amount;
+
+      document.getElementById("depositResult").innerHTML = `
+        <table>
+          <tr><td>Итоговая сумма</td><td>${total.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Доход</td><td>${profit.toFixed(2)}&nbsp;₽</td></tr>
+        </table>
+      `;
+    }
+  });
+
+  // --- Ипотечный калькулятор ---
+  document.getElementById("mortgageForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let amount = parseFloat(document.getElementById("mortgageAmount").value);
+    let years = parseInt(document.getElementById("mortgageYears").value);
+    let months = years * 12;
+    let rate = parseFloat(document.getElementById("mortgageRate").value) / 100 / 12;
+
+    if (amount > 0 && years > 0 && rate >= 0) {
+      let payment = amount * (rate * Math.pow(1 + rate, months)) / (Math.pow(1 + rate, months) - 1);
+      let total = payment * months;
+      let overpay = total - amount;
+
+      document.getElementById("mortgageResult").innerHTML = `
+        <table>
+          <tr><td>Ежемесячный платёж</td><td>${payment.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Общая сумма выплат</td><td>${total.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Переплата</td><td>${overpay.toFixed(2)}&nbsp;₽</td></tr>
+        </table>
+      `;
+    }
+  });
+
+  // Калькулятор инвестиций
+  document.getElementById("investForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let amount = parseFloat(document.getElementById("investAmount").value);
+    let monthly = parseFloat(document.getElementById("investMonthly").value);
+    let years = parseInt(document.getElementById("investYears").value);
+    let rate = parseFloat(document.getElementById("investRate").value) / 100 / 12;
+    let months = years * 12;
+
+    if (amount >= 0 && monthly >= 0 && years > 0 && rate >= 0) {
+      let futureValue = amount * Math.pow(1 + rate, months);
+      for (let i = 1; i <= months; i++) {
+        futureValue += monthly * Math.pow(1 + rate, months - i);
+      }
+
+      let invested = amount + monthly * months;
+      let profit = futureValue - invested;
+
+      document.getElementById("investResult").innerHTML = `
+        <table>
+          <tr><td>Итоговая сумма</td><td>${futureValue.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Вложено всего</td><td>${invested.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Прибыль</td><td>${profit.toFixed(2)}&nbsp;₽</td></tr>
+        </table>
+      `;
+    }
+  });
+</script>
+
+
+</body>
+
+<script>
+  // Анимация появления элементов при прокрутке
+  function revealOnScroll() {
+    const reveals = document.querySelectorAll('.reveal');
+    for (let el of reveals) {
+      const windowHeight = window.innerHeight;
+      const elementTop = el.getBoundingClientRect().top;
+      const elementVisible = 100;
+      if (elementTop < windowHeight - elementVisible) {
+        el.classList.add('active');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', revealOnScroll);
+</script>
+
+</html>

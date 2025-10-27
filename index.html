@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Шпаргалка инвестора</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <h1 class="logo">Шпаргалка инвестора</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">Главная</a></li>
+          <li><a href="calculators.html">Калькуляторы</a></li>
+          <li><a href="articles.html">Статьи</a></li>
+          <li><a href="trading.html">Симулятор</a></li>
+          <li><a href="about.html">О проекте</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container reveal">
+    <section class="hero">
+      <h2>Добро пожаловать</h2>
+      <p>Этот сайт поможет разобраться в личных финансах и использовать простые калькуляторы для расчётов.</p>
+    </section>
+  </main>
+
+  <footer>
+  <div class="container footer-container">
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h4>О проекте</h4>
+        <p>«Шпаргалка инвестора» — учебный сайт с калькуляторами, статьями и симулятором торговли для начинающих инвесторов.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="calculators.html">Калькуляторы</a></li>
+          <li><a href="articles.html">Статьи</a></li>
+          <li><a href="trading.html">Симулятор</a></li>
+          <li><a href="about.html">О проекте</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <p>Email: Chibo_bk33@top-academy.ru</p>
+        <p>Телефон: +7 (999) 123-45-67</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Шпаргалка инвестора. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+
+<script>
+  // Анимация появления элементов при прокрутке
+  function revealOnScroll() {
+    const reveals = document.querySelectorAll('.reveal');
+    for (let el of reveals) {
+      const windowHeight = window.innerHeight;
+      const elementTop = el.getBoundingClientRect().top;
+      const elementVisible = 100;
+      if (elementTop < windowHeight - elementVisible) {
+        el.classList.add('active');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', revealOnScroll);
+</script>
+
+</html>
