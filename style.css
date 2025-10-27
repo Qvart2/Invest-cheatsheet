@@ -5,7 +5,6 @@
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* Растягиваем всю страницу */
 html, body {
   height: 100%;
 }
@@ -321,7 +320,6 @@ footer {
   color: #444;
 }
 
-/* Ссылки внутри текста */
 .lesson a {
   color: #000;
   font-weight: 500;
@@ -334,8 +332,6 @@ footer {
   color: #333;
   border-color: #333;
 }
-
-/* ---------- Анимации и плавные переходы ---------- */
 
 /* Плавное появление при скролле */
 .reveal {
@@ -475,7 +471,6 @@ html {
   font-size: 0.95rem;
 }
 
-/* Исправление для контейнера графика */
 #chart {
   width: 100%;
   height: 400px;
