@@ -563,3 +563,39 @@ html {
 .portfolio-table td {
   background: #fff;
 }
+
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #111;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+  position: relative;
+}
+
+/* Наведение — чуть темнее */
+input[type="radio"]:hover {
+  border-color: #000;
+}
+
+/* Выбранный кружок */
+input[type="radio"]:checked {
+  background-color: #000;
+  border-color: #000;
+}
+
+/* Анимация появления точки */
+input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+}
