@@ -21,6 +21,7 @@
           <li><a href="contacts.html">Контакты</a></li>
         </ul>
       </nav>
+      <button id="theme-toggle" class="theme-toggle-btn">🌙 Тёмная тема</button>
     </div>
   </header>
 
@@ -102,6 +103,48 @@
           <button type="submit">Рассчитать</button>
         </form>
         <div id="mortgageResult" class="result"></div>
+      </section>
+
+      <!-- Калькулятор сложных процентов -->
+      <section class="calc reveal">
+        <h3>Калькулятор сложных процентов</h3>
+        <form id="compoundForm">
+          <label>Начальная сумма (₽):</label>
+          <input type="number" id="compoundAmount" required>
+
+          <label>Ежемесячный взнос (₽):</label>
+          <input type="number" id="compoundMonthly" required>
+
+          <label>Срок (лет):</label>
+          <input type="number" id="compoundYears" required>
+
+          <label>Годовая ставка (%):</label>
+          <input type="number" id="compoundRate" required step="0.1">
+
+          <button type="submit">Рассчитать</button>
+        </form>
+        <div id="compoundResult" class="result"></div>
+      </section>
+
+      <!-- Калькулятор достижения финансовой цели -->
+      <section class="calc reveal">
+        <h3>Калькулятор достижения финансовой цели</h3>
+        <form id="goalForm">
+          <label>Целевая сумма (₽):</label>
+          <input type="number" id="goalAmount" required>
+
+          <label>Срок достижения (лет):</label>
+          <input type="number" id="goalYears" required>
+
+          <label>Годовая ставка (%):</label>
+          <input type="number" id="goalRate" required step="0.1">
+
+          <label>Имеющаяся сумма (₽):</label>
+          <input type="number" id="goalInitial" required>
+
+          <button type="submit">Рассчитать</button>
+        </form>
+        <div id="goalResult" class="result"></div>
       </section>
 
     </div>
@@ -231,6 +274,64 @@
       `;
     }
   });
+
+  // Калькулятор сложных процентов
+  document.getElementById("compoundForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let amount = parseFloat(document.getElementById("compoundAmount").value);
+    let monthly = parseFloat(document.getElementById("compoundMonthly").value);
+    let years = parseInt(document.getElementById("compoundYears").value);
+    let annualRate = parseFloat(document.getElementById("compoundRate").value) / 100;
+    let rate = annualRate / 12;
+    let months = years * 12;
+
+    if (amount >= 0 && monthly >= 0 && years > 0 && annualRate >= 0) {
+      let futureValue = amount * Math.pow(1 + rate, months);
+      if (monthly > 0) {
+        futureValue += monthly * (Math.pow(1 + rate, months) - 1) / rate;
+      }
+
+      let invested = amount + monthly * months;
+      let profit = futureValue - invested;
+
+      document.getElementById("compoundResult").innerHTML = `
+        <table>
+          <tr><td>Итоговая сумма</td><td>${futureValue.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Вложено всего</td><td>${invested.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Прибыль</td><td>${profit.toFixed(2)}&nbsp;₽</td></tr>
+        </table>
+      `;
+    }
+  });
+
+  // Калькулятор достижения финансовой цели
+  document.getElementById("goalForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let goal = parseFloat(document.getElementById("goalAmount").value);
+    let years = parseInt(document.getElementById("goalYears").value);
+    let annualRate = parseFloat(document.getElementById("goalRate").value) / 100;
+    let initial = parseFloat(document.getElementById("goalInitial").value);
+    let rate = annualRate / 12;
+    let months = years * 12;
+
+    if (goal > 0 && years > 0 && annualRate >= 0 && initial >= 0) {
+      let futureInitial = initial * Math.pow(1 + annualRate, years);
+      let needed = goal - futureInitial;
+      let monthly = needed / ((Math.pow(1 + rate, months) - 1) / rate);
+
+      if (monthly < 0) {
+        monthly = 0;
+      }
+
+      document.getElementById("goalResult").innerHTML = `
+        <table>
+          <tr><td>Необходимый ежемесячный вклад</td><td>${monthly.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Ваша имеющаяся сумма через ${years} лет</td><td>${futureInitial.toFixed(2)}&nbsp;₽</td></tr>
+          <tr><td>Недостающая сумма</td><td>${needed.toFixed(2)}&nbsp;₽</td></tr>
+        </table>
+      `;
+    }
+  });
 </script>
 
 
@@ -252,6 +353,27 @@
 
   window.addEventListener('scroll', revealOnScroll);
   window.addEventListener('load', revealOnScroll);
+
+  // Переключение темы
+  const themeToggle = document.getElementById('theme-toggle');
+  const body = document.body;
+
+  // Загрузка сохраненной темы
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    body.classList.add('dark-theme');
+    themeToggle.textContent = '☀️ Светлая тема';
+  } else {
+    themeToggle.textContent = '🌙 Тёмная тема';
+  }
+
+  // Обработчик клика
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-theme');
+    const isDark = body.classList.contains('dark-theme');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    themeToggle.textContent = isDark ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+  });
 </script>
 
 </html>

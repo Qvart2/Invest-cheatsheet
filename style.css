@@ -1,3 +1,89 @@
+:root {
+  --bg-color: #fff;
+  --text-color: #222;
+  --header-bg: #111;
+  --header-text: #fff;
+  --nav-link: #ccc;
+  --nav-hover-bg: rgba(255, 255, 255, 0.12);
+  --nav-hover-border: rgba(255, 255, 255, 0.53);
+  --h2-color: #111;
+  --p-color: #444;
+  --form-bg: #f9f9f9;
+  --form-border: #ccc;
+  --footer-bg: #111;
+  --footer-text: #ddd;
+  --footer-link: #bbb;
+  --footer-border: #333;
+  --post-border: #ddd;
+  --post-h3: #111;
+  --post-small: #777;
+  --calc-bg: #f5f5f5;
+  --calc-bg-alt: #f9f9f9;
+  --lesson-bg: #fafafa;
+  --lesson-border: #ddd;
+  --lesson-h3: #111;
+  --lesson-p: #333;
+  --lesson-link: #000;
+  --lesson-link-hover: #333;
+  --sim-bg: #fafafa;
+  --sim-info: #333;
+  --sim-log-bg: #f0f0f0;
+  --sim-log-border: #ddd;
+  --risk-bg: #fafafa;
+  --risk-border: #ddd;
+  --risk-p: #111;
+  --risk-label: #333;
+  --table-border: #ccc;
+  --table-th-bg: #f2f2f2;
+  --table-td-bg: #fff;
+  --radio-border: #111;
+  --radio-checked: #000;
+  --radio-after: #fff;
+}
+
+.dark-theme {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --header-bg: #1e1e1e;
+  --header-text: #e0e0e0;
+  --nav-link: #b0b0b0;
+  --nav-hover-bg: rgba(255, 255, 255, 0.1);
+  --nav-hover-border: rgba(255, 255, 255, 0.3);
+  --h2-color: #e0e0e0;
+  --p-color: #b0b0b0;
+  --form-bg: #2a2a2a;
+  --form-border: #555;
+  --footer-bg: #1e1e1e;
+  --footer-text: #b0b0b0;
+  --footer-link: #888;
+  --footer-border: #555;
+  --post-border: #555;
+  --post-h3: #e0e0e0;
+  --post-small: #888;
+  --calc-bg: #2a2a2a;
+  --calc-bg-alt: #1e1e1e;
+  --lesson-bg: #1e1e1e;
+  --lesson-border: #555;
+  --lesson-h3: #e0e0e0;
+  --lesson-p: #b0b0b0;
+  --lesson-link: #e0e0e0;
+  --lesson-link-hover: #fff;
+  --sim-bg: #1e1e1e;
+  --sim-info: #b0b0b0;
+  --sim-log-bg: #2a2a2a;
+  --sim-log-border: #555;
+  --risk-bg: #1e1e1e;
+  --risk-border: #555;
+  --risk-p: #e0e0e0;
+  --risk-label: #b0b0b0;
+  --table-border: #555;
+  --table-th-bg: #2a2a2a;
+  --table-td-bg: #121212;
+  --radio-border: #e0e0e0;
+  --radio-checked: #e0e0e0;
+  --radio-after: #121212;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,9 +98,10 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
-  background: #fff;
-  color: #222;
+  background: var(--bg-color);
+  color: var(--text-color);
   line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
 }
 
 /* Контейнер */
@@ -26,9 +113,10 @@ body {
 
 /* Хэдер */
 header {
-  background: #111;
-  color: #fff;
+  background: var(--header-bg);
+  color: var(--header-text);
   padding: 15px 0;
+  transition: background 0.3s;
 }
 
 .header-container {
@@ -50,7 +138,7 @@ header {
 }
 
 .nav-links a {
-  color: #ccc;
+  color: var(--nav-link);
   text-decoration: none;
   transition: 0.3s;
 }
@@ -58,12 +146,28 @@ header {
 .nav-links a:hover,
 .nav-links .active {
   padding: 5px;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--nav-hover-bg);
   border-radius: 10px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
-  border: 1px solid rgba(255, 255, 255, 0.53);
+  border: 1px solid var(--nav-hover-border);
+}
+
+.theme-toggle-btn {
+  background: var(--header-bg);
+  color: var(--header-text);
+  border: 1px solid var(--nav-hover-border);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 0.9rem;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--nav-hover-bg);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Основной контент */
@@ -75,11 +179,11 @@ main {
 h2 {
   font-size: 1.8rem;
   margin-bottom: 15px;
-  color: #111;
+  color: var(--h2-color);
 }
 
 p {
-  color: #444;
+  color: var(--p-color);
   margin-bottom: 20px;
 }
 
@@ -94,14 +198,14 @@ p {
 .contact-form input,
 .contact-form textarea {
   padding: 10px;
-  border: 1px solid #ccc;
-  background: #f9f9f9;
+  border: 1px solid var(--form-border);
+  background: var(--form-bg);
   font-size: 1rem;
 }
 
 .contact-form button {
-  background: #111;
-  color: #fff;
+  background: var(--header-bg);
+  color: var(--header-text);
   border: none;
   padding: 10px;
   cursor: pointer;
@@ -109,16 +213,17 @@ p {
 }
 
 .contact-form button:hover {
-  background: #333;
+  background: var(--footer-border);
 }
 
 /* Футер */
 footer {
-  background: #111;
-  color: #ddd;
+  background: var(--footer-bg);
+  color: var(--footer-text);
   padding: 40px 0 20px 0;
   margin-top: auto;
-  border-top: 2px solid #333;
+  border-top: 2px solid var(--footer-border);
+  transition: background 0.3s;
 }
 
 .footer-columns {
@@ -137,56 +242,56 @@ footer {
 .footer-col h4 {
   font-size: 1.1rem;
   margin-bottom: 10px;
-  color: #fff;
+  color: var(--header-text);
 }
 
 .footer-col p,
 .footer-col a {
   font-size: 0.95rem;
-  color: #bbb;
+  color: var(--footer-link);
   text-decoration: none;
 }
 
 .footer-col a:hover {
-  color: #fff;
+  color: var(--header-text);
 }
 
 .footer-bottom {
   text-align: center;
   font-size: 0.9rem;
-  color: #888;
-  border-top: 1px solid #333;
+  color: var(--footer-link);
+  border-top: 1px solid var(--footer-border);
   padding-top: 10px;
 }
 
 
 /* Статьи */
 .post {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--post-border);
   padding: 20px 0;
 }
 
 .post h3 {
   font-size: 1.4rem;
   margin-bottom: 5px;
-  color: #111;
+  color: var(--post-h3);
 }
 
 .post small {
-  color: #777;
+  color: var(--post-small);
   display: block;
   margin-bottom: 10px;
 }
 
 .post p {
-  color: #444;
+  color: var(--p-color);
   text-align: justify;
 }
 
 /* Блок калькуляторов */
 .calc {
-  background: #f5f5f5;
-  border: 1px solid #ccc;
+  background: var(--calc-bg);
+  border: 1px solid var(--form-border);
   padding: 20px;
   border-radius: 6px;
   max-width: 400px;
@@ -195,7 +300,7 @@ footer {
 
 .calc h3 {
   margin-bottom: 15px;
-  color: #111;
+  color: var(--h2-color);
 }
 
 .calc form {
@@ -210,15 +315,15 @@ footer {
 }
 
 .calc button {
-  background: #111;
-  color: #fff;
+  background: var(--header-bg);
+  color: var(--header-text);
   border: none;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .calc button:hover {
-  background: #333;
+  background: var(--footer-border);
 }
 
 .result {
@@ -239,8 +344,8 @@ footer {
 .calc {
   flex: 1 1 300px;
   max-width: 350px;
-  background: #f9f9f9;
-  border: 1px solid #ccc;
+  background: var(--calc-bg-alt);
+  border: 1px solid var(--form-border);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -249,7 +354,15 @@ footer {
 .calc h3 {
   margin-bottom: 15px;
   text-align: center;
-  color: #111;
+  color: var(--h2-color);
+}
+
+/* Медиа-запросы для адаптации калькуляторов на мобильных */
+@media (max-width: 768px) {
+  .calc {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
 }
 
 /* Таблица результатов */
@@ -261,20 +374,20 @@ footer {
 
 .result table td {
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--form-border);
 }
 
 .result table td:first-child {
-  background: #f0f0f0;
+  background: var(--form-bg);
   font-weight: bold;
 }
 
 /* Учебные статьи (раздел "Учебные материалы") */
 .intro-text {
   font-size: 1.05rem;
-  color: #333;
-  background: #f7f7f7;
-  border-left: 4px solid #111;
+  color: var(--lesson-p);
+  background: var(--calc-bg-alt);
+  border-left: 4px solid var(--h2-color);
   padding: 15px 20px;
   border-radius: 4px;
   margin-bottom: 30px;
@@ -282,8 +395,8 @@ footer {
 }
 
 .lesson {
-  background: #fafafa;
-  border: 1px solid #ddd;
+  background: var(--lesson-bg);
+  border: 1px solid var(--lesson-border);
   border-radius: 8px;
   padding: 25px 30px;
   margin-bottom: 30px;
@@ -299,14 +412,14 @@ footer {
 .lesson h3 {
   font-size: 1.4rem;
   margin-bottom: 15px;
-  color: #111;
-  border-bottom: 2px solid #333;
+  color: var(--lesson-h3);
+  border-bottom: 2px solid var(--footer-border);
   padding-bottom: 5px;
 }
 
 .lesson p {
   margin-bottom: 15px;
-  color: #333;
+  color: var(--lesson-p);
   text-align: justify;
 }
 
@@ -317,20 +430,20 @@ footer {
 
 .lesson ul li {
   margin-bottom: 8px;
-  color: #444;
+  color: var(--p-color);
 }
 
 .lesson a {
-  color: #000;
+  color: var(--lesson-link);
   font-weight: 500;
-  border-bottom: 1px dashed #555;
+  border-bottom: 1px dashed var(--footer-border);
   text-decoration: none;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .lesson a:hover {
-  color: #333;
-  border-color: #333;
+  color: var(--lesson-link-hover);
+  border-color: var(--footer-border);
 }
 
 /* Плавное появление при скролле */
@@ -363,8 +476,8 @@ html {
 
 /* Симулятор трейдинга */
 .simulator {
-  background: #fafafa;
-  border: 1px solid #ccc;
+  background: var(--sim-bg);
+  border: 1px solid var(--sim-log-border);
   border-radius: 10px;
   padding: 25px 30px;
   margin: 40px auto;
@@ -376,7 +489,7 @@ html {
 .simulator h3 {
   font-size: 1.5rem;
   margin-bottom: 20px;
-  color: #111;
+  color: var(--h2-color);
 }
 
 .sim-info {
@@ -384,7 +497,7 @@ html {
   line-height: 1.8;
   font-size: 1rem;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--sim-info);
 }
 
 .sim-buttons {
@@ -399,24 +512,24 @@ html {
   padding: 10px 20px;
   border: none;
   border-radius: 6px;
-  background: #111;
-  color: #fff;
+  background: var(--header-bg);
+  color: var(--header-text);
   cursor: pointer;
   transition: 0.3s;
   font-size: 1rem;
 }
 
 .sim-buttons button:hover {
-  background: #333;
+  background: var(--footer-border);
 }
 
 .sim-log {
-  background: #f0f0f0;
+  background: var(--sim-log-bg);
   border-radius: 6px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--sim-log-border);
   font-size: 0.95rem;
-  color: #444;
+  color: var(--p-color);
 }
 
 .chart-container {
@@ -426,8 +539,8 @@ html {
 }
 
 .simulator {
-  background: #fafafa;
-  border: 1px solid #ccc;
+  background: var(--sim-bg);
+  border: 1px solid var(--sim-log-border);
   border-radius: 10px;
   padding: 25px 30px;
   margin: 40px auto;
@@ -446,14 +559,14 @@ html {
   padding: 10px 25px;
   border: none;
   border-radius: 6px;
-  background: #111;
-  color: #fff;
+  background: var(--header-bg);
+  color: var(--header-text);
   cursor: pointer;
   transition: 0.3s;
 }
 
 .sim-buttons button:hover {
-  background: #333;
+  background: var(--footer-border);
 }
 
 .sim-info p {
@@ -463,11 +576,11 @@ html {
 
 .sim-log {
   text-align: center;
-  background: #f0f0f0;
-  border: 1px solid #ddd;
+  background: var(--sim-log-bg);
+  border: 1px solid var(--sim-log-border);
   border-radius: 6px;
   padding: 10px;
-  color: #444;
+  color: var(--p-color);
   font-size: 0.95rem;
 }
 
@@ -480,13 +593,14 @@ html {
 /* тест на профиль риска */
 
 .risk-form {
-  background: #fafafa;
-  border: 1px solid #ddd;
+  background: var(--risk-bg);
+  border: 1px solid var(--risk-border);
   padding: 25px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   max-width: 700px;
   margin: 30px auto;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
 .question {
@@ -496,7 +610,8 @@ html {
 .question p {
   font-weight: 600;
   margin-bottom: 10px;
-  color: #111;
+  color: var(--risk-p);
+  transition: color 0.3s;
 }
 
 .question label {
@@ -504,7 +619,8 @@ html {
   margin: 6px 0;
   padding-left: 5px;
   cursor: pointer;
-  color: #333;
+  color: var(--risk-label);
+  transition: color 0.3s;
 }
 
 .question input[type="radio"] {
@@ -512,8 +628,8 @@ html {
 }
 
 .risk-btn {
-  background: #111;
-  color: #fff;
+  background: var(--header-bg);
+  color: var(--header-text);
   padding: 12px 20px;
   border: none;
   font-size: 1rem;
@@ -525,7 +641,7 @@ html {
 }
 
 .risk-btn:hover {
-  background: #333;
+  background: var(--footer-border);
 }
 
 .risk-result {
@@ -533,7 +649,8 @@ html {
   font-size: 1.3rem;
   font-weight: 600;
   text-align: center;
-  color: #111;
+  color: var(--risk-p);
+  transition: color 0.3s;
 }
 
 .portfolio-block {
@@ -547,21 +664,25 @@ html {
   width: 100%;
   border-collapse: collapse;
   margin-top: 15px;
+  transition: all 0.3s;
 }
 
 .portfolio-table th,
 .portfolio-table td {
-  border: 1px solid #ccc;
+  border: 1px solid var(--table-border);
   padding: 10px;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
 }
 
 .portfolio-table th {
-  background: #f2f2f2;
+  background: var(--table-th-bg);
   font-weight: 700;
+  color: var(--text-color);
 }
 
 .portfolio-table td {
-  background: #fff;
+  background: var(--table-td-bg);
+  color: var(--text-color);
 }
 
 input[type="radio"] {
@@ -569,7 +690,7 @@ input[type="radio"] {
   -webkit-appearance: none;
   width: 18px;
   height: 18px;
-  border: 2px solid #111;
+  border: 2px solid var(--radio-border);
   border-radius: 50%;
   outline: none;
   cursor: pointer;
@@ -579,13 +700,13 @@ input[type="radio"] {
 
 /* Наведение — чуть темнее */
 input[type="radio"]:hover {
-  border-color: #000;
+  border-color: var(--radio-checked);
 }
 
 /* Выбранный кружок */
 input[type="radio"]:checked {
-  background-color: #000;
-  border-color: #000;
+  background-color: var(--radio-checked);
+  border-color: var(--radio-checked);
 }
 
 /* Анимация появления точки */
@@ -596,6 +717,6 @@ input[type="radio"]:checked::after {
   left: 3px;
   width: 8px;
   height: 8px;
-  background: #fff;
+  background: var(--radio-after);
   border-radius: 50%;
 }
