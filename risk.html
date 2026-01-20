@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Тест на профиль риска | Шпаргалка инвестора</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
 </head>
 
 <body>
@@ -153,88 +154,7 @@
   </div>
 </footer>
 
-<script>
-// Переключение темы
-const themeToggle = document.getElementById('theme-toggle');
-const body = document.body;
 
-// Загрузка сохраненной темы
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') {
-  body.classList.add('dark-theme');
-  themeToggle.textContent = '☀️ Светлая тема';
-} else {
-  themeToggle.textContent = '🌙 Тёмная тема';
-}
-
-// Обработчик клика
-themeToggle.addEventListener('click', () => {
-  body.classList.toggle('dark-theme');
-  const isDark = body.classList.contains('dark-theme');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  themeToggle.textContent = isDark ? '☀️ Светлая тема' : '🌙 Тёмная тема';
-});
-
-document.getElementById("riskForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  let score = 0;
-  for (let i = 1; i <= 10; i++) {
-    const value = document.querySelector(`input[name="q${i}"]:checked`);
-    if (!value) {
-      alert("Пожалуйста, ответьте на все вопросы.");
-      return;
-    }
-    score += parseInt(value.value);
-  }
-
-  let profile = "";
-  if (score <= 17) profile = "Консервативный";
-  else if (score <= 28) profile = "Умеренный";
-  else profile = "Агрессивный";
-
-  const result = document.getElementById("riskResult");
-  result.innerHTML = `<h3>Ваш профиль риска: <strong>${profile}</strong></h3>`;
-
-  generatePortfolio(profile);
-});
-
-function generatePortfolio(profile) {
-  const block = document.getElementById("portfolioBlock");
-
-  let sets = {
-    "Консервативный": [
-      ["Облигации", "70%"],
-      ["ETF", "20%"],
-      ["Акции", "10%"]
-    ],
-    "Умеренный": [
-      ["Облигации", "45%"],
-      ["ETF", "35%"],
-      ["Акции", "20%"]
-    ],
-    "Агрессивный": [
-      ["Облигации", "15%"],
-      ["ETF", "35%"],
-      ["Акции", "50%"]
-    ]
-  };
-
-  let html = `
-    <h3>Рекомендуемый портфель:</h3>
-    <table class="portfolio-table">
-      <tr><th>Актив</th><th>Доля</th></tr>
-  `;
-
-  sets[profile].forEach(row => {
-    html += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
-  });
-
-  html += "</table>";
-
-  block.innerHTML = html;
-}
-</script>
 
 </body>
 </html>

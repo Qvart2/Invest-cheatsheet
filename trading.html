@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+  <script src="script.js"></script>
 </head>
 <body>
   <header>
@@ -33,7 +34,7 @@
 
     <section class="simulator">
       <div class="sim-info">
-        <p><strong>Актив:</strong> GAZP</p>
+        <p><strong>Актив:</strong> GAZP (Газпром)</p>
         <p><strong>Текущая цена:</strong> <span id="price">100.00</span> ₽</p>
         <p><strong>Баланс:</strong> <span id="balance">100000.00</span> ₽</p>
         <p><strong>Акций на руках:</strong> <span id="stocks">0</span></p>
@@ -44,6 +45,7 @@
         <input id="lotCount" type="number" min="1" value="1" style="width:80px; text-align:center; padding:5px;">
         <button id="buy">Купить</button>
         <button id="sell">Продать</button>
+        <button id="resetSimulator">Начать заново</button>
       </div>
 
       <div class="chart-container" style="height: 400px;">
@@ -51,6 +53,13 @@
       </div>
 
       <div id="log" class="sim-log">Ожидание данных...</div>
+
+      <div class="transaction-history">
+        <h3>История транзакций</h3>
+        <table id="transactionHistory">
+          <tr><th>Время</th><th>Тип</th><th>Количество</th><th>Цена</th><th>Сумма</th></tr>
+        </table>
+      </div>
     </section>
   </main>
 
@@ -85,120 +94,6 @@
     </div>
   </footer>
 
-  <script>
-    let price = 100;
-    let balance = 100000;
-    let stocks = 0;
-    const candles = [];
 
-    const priceEl = document.getElementById('price');
-    const balanceEl = document.getElementById('balance');
-    const stocksEl = document.getElementById('stocks');
-    const portfolioEl = document.getElementById('portfolio');
-    const logEl = document.getElementById('log');
-
-    function updateUI() {
-      priceEl.textContent = price.toFixed(2);
-      balanceEl.textContent = balance.toFixed(2);
-      stocksEl.textContent = stocks;
-      portfolioEl.textContent = (balance + stocks * price).toFixed(2);
-    }
-
-    const chartContainer = document.getElementById('chart');
-    const chart = LightweightCharts.createChart(chartContainer, {
-      layout: {
-        textColor: '#000',
-        backgroundColor: '#fff',
-      },
-      rightPriceScale: {
-        borderVisible: true,
-      },
-      timeScale: {
-        borderVisible: true,
-      }
-    });
-    const candleSeries = chart.addCandlestickSeries({
-      upColor: '#26a69a',
-      downColor: '#ef5350',
-      borderVisible: false,
-      wickVisible: true
-    });
-
-    function newCandle() {
-      const now = Date.now() / 1000;
-      const open = price;
-      const change = price * (Math.random() * 0.04 - 0.02);
-      const close = Math.max(1, price + change);
-      const high = Math.max(open, close) + Math.random() * 1.5;
-      const low = Math.min(open, close) - Math.random() * 1.5;
-      price = close;
-
-      const candle = { time: now, open: open, high: high, low: low, close: close };
-      candles.push(candle);
-      if (candles.length > 40) candles.shift();
-
-      candleSeries.setData(candles);
-      updateUI();
-      logEl.textContent = `📈 Новая свеча: ${close.toFixed(2)} ₽`;
-      chart.timeScale().fitContent();
-    }
-
-    const lotInput = document.getElementById("lotCount");
-
-    document.getElementById("buy").addEventListener("click", () => {
-    const lots = Math.max(1, parseInt(lotInput.value) || 1);
-    const totalCost = lots * price;
-
-    if (balance >= totalCost) {
-        balance -= totalCost;
-        stocks += lots;
-        updateUI();
-        document.getElementById("log").textContent =
-        `🟢 Куплено ${lots} ${lots === 1 ? "акция" : "акций"} по ${price.toFixed(2)} ₽ (итого: ${totalCost.toFixed(2)} ₽)`;
-    } else {
-        document.getElementById("log").textContent = "⚠️ Недостаточно средств";
-    }
-    });
-
-    document.getElementById("sell").addEventListener("click", () => {
-    const lots = Math.max(1, parseInt(lotInput.value) || 1);
-
-    if (stocks >= lots) {
-        const totalGain = lots * price;
-        balance += totalGain;
-        stocks -= lots;
-        updateUI();
-        document.getElementById("log").textContent =
-        `🔴 Продано ${lots} ${lots === 1 ? "акция" : "акций"} по ${price.toFixed(2)} ₽ (итого: ${totalGain.toFixed(2)} ₽)`;
-    } else {
-        document.getElementById("log").textContent = "⚠️ Недостаточно акций";
-    }
-    });
-
-    updateUI();
-    for (let i = 0; i < 5; i++) newCandle();
-    setInterval(newCandle, 4000);
-
-    // Переключение темы
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    // Загрузка сохраненной темы
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      body.classList.add('dark-theme');
-      themeToggle.textContent = '☀️ Светлая тема';
-    } else {
-      themeToggle.textContent = '🌙 Тёмная тема';
-    }
-
-    // Обработчик клика
-    themeToggle.addEventListener('click', () => {
-      body.classList.toggle('dark-theme');
-      const isDark = body.classList.contains('dark-theme');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      themeToggle.textContent = isDark ? '☀️ Светлая тема' : '🌙 Тёмная тема';
-    });
-  </script>
 </body>
 </html>
