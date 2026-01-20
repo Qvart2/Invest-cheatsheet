@@ -510,13 +510,22 @@ function showCategory(categoryId) {
   }
 
   // Обновить активную кнопку
-  const buttons = document.querySelectorAll('.nav-btn');
+  const buttons = document.querySelectorAll('.article-nav-btn');
   buttons.forEach(btn => btn.classList.remove('active'));
 
   const activeButton = document.querySelector(`[onclick="showCategory('${categoryId}')"]`);
   if (activeButton) {
     activeButton.classList.add('active');
   }
+
+  // Сохранить активную категорию в localStorage
+  localStorage.setItem('activeArticleCategory', categoryId);
+}
+
+// Инициализация активной категории статей при загрузке страницы
+function initArticleCategory() {
+  const savedCategory = localStorage.getItem('activeArticleCategory') || 'basics';
+  showCategory(savedCategory);
 }
 
 // Инициализация
@@ -527,4 +536,5 @@ window.addEventListener('load', () => {
   initCalculators();
   initRiskTest();
   initTradingSimulator();
+  if (document.querySelector('.article-nav')) initArticleCategory();
 });
