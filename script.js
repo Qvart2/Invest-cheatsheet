@@ -490,8 +490,6 @@ function initTradingSimulator() {
     resetBtn.addEventListener("click", resetSimulator);
   }
 
-
-
   updateUI();
   for (let i = 0; i < 5; i++) newCandle();
   setInterval(newCandle, 4000);
