@@ -3,16 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Симулятор биржевой торговли - практикуйтесь в торговле акциями без риска">
+  <meta name="keywords" content="симулятор трейдинга, торговля акциями, биржа, симулятор">
   <title>Симулятор трейдинга | Шпаргалка инвестора</title>
   <link rel="stylesheet" href="style.css">
-
-  <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
-  <script src="script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
     <div class="container header-container">
       <h1 class="logo">Шпаргалка инвестора</h1>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Открыть меню">☰</button>
       <nav>
         <ul class="nav-links">
           <li><a href="index.html">Главная</a></li>
@@ -24,40 +29,65 @@
           <li><a href="contacts.html">Контакты</a></li>
         </ul>
       </nav>
-      <button id="theme-toggle" class="theme-toggle-btn">🌙 Тёмная тема</button>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Переключить тему">
+        <span>🌙</span> Тёмная
+      </button>
     </div>
   </header>
 
   <main class="container">
-    <h2>Симулятор трейдинга</h2>
-    <p class="intro-text">Следите за динамикой цены актива и пробуйте покупать и продавать акции. График обновляется автоматически.</p>
+    <section class="reveal">
+      <h2>📈 Симулятор трейдинга</h2>
+      <p class="intro-text">Следите за динамикой цены актива и пробуйте покупать и продавать акции. График обновляется автоматически каждые 3 секунды. Это учебный симулятор — никакие реальные деньги не используются!</p>
+    </section>
 
-    <section class="simulator">
+    <section class="simulator reveal">
       <div class="sim-info">
-        <p><strong>Актив:</strong> GAZP (Газпром)</p>
-        <p><strong>Текущая цена:</strong> <span id="price">100.00</span> ₽</p>
-        <p><strong>Баланс:</strong> <span id="balance">100000.00</span> ₽</p>
-        <p><strong>Акций на руках:</strong> <span id="stocks">0</span></p>
-        <p><strong>Стоимость портфеля:</strong> <span id="portfolio">100000.00</span> ₽</p>
+        <p>
+          <strong>📊 Актив</strong>
+          GAZP (Газпром)
+        </p>
+        <p>
+          <strong>💵 Цена</strong>
+          <span id="price" style="color: var(--lesson-link); font-weight: 700;">100.00</span> ₽
+        </p>
+        <p>
+          <strong>💰 Баланс</strong>
+          <span id="balance" style="color: var(--success-color); font-weight: 700;">100,000.00</span> ₽
+        </p>
+        <p>
+          <strong>📦 Акций на руках</strong>
+          <span id="stocks" style="color: var(--lesson-link); font-weight: 700;">0</span>
+        </p>
+        <p>
+          <strong>💼 Портфель</strong>
+          <span id="portfolio" style="color: var(--warning-color); font-weight: 700;">100,000.00</span> ₽
+        </p>
       </div>
 
       <div class="sim-buttons">
-        <input id="lotCount" type="number" min="1" value="1" style="width:80px; text-align:center; padding:5px;">
-        <button id="buy">Купить</button>
-        <button id="sell">Продать</button>
-        <button id="resetSimulator">Начать заново</button>
+        <label style="display: flex; align-items: center; gap: 0.5rem;">
+          <span>Количество:</span>
+          <input id="lotCount" type="number" min="1" value="1" style="width: 70px;">
+        </label>
+        <button id="buy" style="flex: 1; max-width: 150px;">🟢 Купить</button>
+        <button id="sell" style="flex: 1; max-width: 150px;">🔴 Продать</button>
+        <button id="resetSimulator">🔄 Сброс</button>
       </div>
 
-      <div class="chart-container" style="height: 400px;">
+      <div class="chart-container">
         <div id="chart"></div>
       </div>
 
-      <div id="log" class="sim-log">Ожидание данных...</div>
+      <div id="log" class="sim-log">📌 Готов к торговле. Купите или продайте акции!</div>
 
       <div class="transaction-history">
-        <h3>История транзакций</h3>
+        <h3>📜 История транзакций</h3>
         <table id="transactionHistory">
-          <tr><th>Время</th><th>Тип</th><th>Количество</th><th>Цена</th><th>Сумма</th></tr>
+          <thead>
+            <tr><th>Время</th><th>Тип</th><th>Кол-во</th><th>Цена</th><th>Сумма</th></tr>
+          </thead>
+          <tbody></tbody>
         </table>
       </div>
     </section>
@@ -84,16 +114,15 @@
         </div>
         <div class="footer-col">
           <h4>Контакты</h4>
-          <p>Email: Chibo_bk33@top-academy.ru</p>
+          <p>Email: example@invest-guide.ru</p>
           <p>Телефон: +7 (999) 123-45-67</p>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 Шпаргалка инвестора. Все права защищены.</p>
+        <p>© 2025 Шпаргалка инвестора. Все права защищены.</p>
       </div>
     </div>
   </footer>
-
 
 </body>
 </html>

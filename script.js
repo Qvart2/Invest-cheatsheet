@@ -1,40 +1,111 @@
-// Общие функции для всех страниц
+// ========== Утилиты ==========
 
-// Валидация ввода
-function validatePositiveNumber(value, fieldName) {
+// Форматирование денежных сумм
+function formatMoney(amount) {
+  return amount.toLocaleString('ru-RU', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }) + ' ₽';
+}
+
+// Форматирование процентов
+function formatPercent(value) {
+  return value.toLocaleString('ru-RU', {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 2
+  }) + '%';
+}
+
+// Валидация положительного числа
+function validatePositiveNumber(value, fieldName, maxValue = null) {
   const num = parseFloat(value);
-  if (isNaN(num) || num <= 0) {
-    alert(`Ошибка: ${fieldName} должно быть положительным числом`);
+  if (isNaN(num) || num < 0) {
+    showNotification(`Ошибка: ${fieldName} должно быть положительным числом`, 'error');
+    return false;
+  }
+  if (maxValue !== null && num > maxValue) {
+    showNotification(`Ошибка: ${fieldName} не может быть больше ${maxValue}`, 'error');
     return false;
   }
   return num;
 }
 
-// Анимация появления элементов при прокрутке
+// Показать уведомление
+function showNotification(message, type = 'info') {
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.innerHTML = `
+    <span class="notification-icon">${type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️'}</span>
+    <span class="notification-message">${message}</span>
+  `;
+  
+  // Добавляем стили динамически
+  notification.style.cssText = `
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: ${type === 'error' ? '#fee2e2' : type === 'success' ? '#d1fae5' : '#dbeafe'};
+    color: ${type === 'error' ? '#dc2626' : type === 'success' ? '#059669' : '#2563eb'};
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: slideInRight 0.3s ease;
+    max-width: 350px;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.animation = 'fadeOut 0.3s ease';
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
+}
+
+// ========== Анимации ==========
+
+// Анимация появления при скролле
 function revealOnScroll() {
   const reveals = document.querySelectorAll('.reveal');
-  for (let el of reveals) {
+  reveals.forEach((el, index) => {
     const windowHeight = window.innerHeight;
     const elementTop = el.getBoundingClientRect().top;
     const elementVisible = 100;
     if (elementTop < windowHeight - elementVisible) {
       el.classList.add('active');
+      // Добавляем задержку для последовательной анимации
+      el.style.transitionDelay = `${index * 0.1}s`;
     }
+  });
+}
+
+// Плавная прокрутка к элементу
+function smoothScrollTo(elementId) {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
+
+// ========== Тема ==========
 
 // Переключение темы
 function initThemeToggle() {
   const themeToggle = document.getElementById('theme-toggle');
   const body = document.body;
+  
+  if (!themeToggle) return;
 
   // Загрузка сохраненной темы
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
     body.classList.add('dark-theme');
-    themeToggle.textContent = '☀️ Светлая тема';
+    themeToggle.innerHTML = '<span>☀️</span> Светлая';
   } else {
-    themeToggle.textContent = '🌙 Тёмная тема';
+    themeToggle.innerHTML = '<span>🌙</span> Тёмная';
   }
 
   // Обработчик клика
@@ -42,11 +113,48 @@ function initThemeToggle() {
     body.classList.toggle('dark-theme');
     const isDark = body.classList.contains('dark-theme');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    themeToggle.textContent = isDark ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+    themeToggle.innerHTML = isDark ? '<span>☀️</span> Светлая' : '<span>🌙</span> Тёмная';
+    
+    // Обновление графика при смене темы
+    if (typeof updateChartTheme === 'function') {
+      updateChartTheme();
+    }
   });
 }
 
-// Общая функция для обновления результатов с таблицей
+// ========== Мобильное меню ==========
+
+function initMobileMenu() {
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (!menuToggle || !navLinks) return;
+  
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    menuToggle.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+  });
+  
+  // Закрыть меню при клике на ссылку
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      menuToggle.innerHTML = '☰';
+    });
+  });
+  
+  // Закрыть меню при клике вне его
+  document.addEventListener('click', (e) => {
+    if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+      navLinks.classList.remove('active');
+      menuToggle.innerHTML = '☰';
+    }
+  });
+}
+
+// ========== Калькуляторы ==========
+
+// Общая функция обновления результатов
 function updateResultsTable(elementId, data) {
   const container = document.getElementById(elementId);
   if (!container) return;
@@ -54,16 +162,17 @@ function updateResultsTable(elementId, data) {
   let html = '<table>';
   data.forEach(row => {
     html += '<tr>';
-    row.forEach(cell => {
-      html += `<td>${cell}</td>`;
-    });
+    html += `<td>${row[0]}</td>`;
+    html += `<td>${row[1]}</td>`;
     html += '</tr>';
   });
   html += '</table>';
+  
   container.innerHTML = html;
+  container.style.animation = 'fadeIn 0.3s ease';
 }
 
-// Функции калькуляторов
+// Кредитный калькулятор
 function calculateCredit(amount, months, rate) {
   const monthlyRate = rate / 100 / 12;
   const payment = amount * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
@@ -71,23 +180,25 @@ function calculateCredit(amount, months, rate) {
   const overpay = total - amount;
 
   return [
-    ['Ежемесячный платёж', payment.toFixed(2) + '&nbsp;₽'],
-    ['Общая сумма выплат', total.toFixed(2) + '&nbsp;₽'],
-    ['Переплата', overpay.toFixed(2) + '&nbsp;₽']
+    ['Ежемесячный платёж', formatMoney(payment)],
+    ['Общая сумма выплат', formatMoney(total)],
+    ['Переплата', formatMoney(overpay)]
   ];
 }
 
+// Калькулятор вкладов
 function calculateDeposit(amount, months, rate) {
   const monthlyRate = rate / 100 / 12;
   const total = amount * Math.pow(1 + monthlyRate, months);
   const profit = total - amount;
 
   return [
-    ['Итоговая сумма', total.toFixed(2) + '&nbsp;₽'],
-    ['Доход', profit.toFixed(2) + '&nbsp;₽']
+    ['Итоговая сумма', formatMoney(total)],
+    ['Доход', formatMoney(profit)]
   ];
 }
 
+// Ипотечный калькулятор
 function calculateMortgage(amount, years, rate) {
   const months = years * 12;
   const monthlyRate = rate / 100 / 12;
@@ -96,12 +207,13 @@ function calculateMortgage(amount, years, rate) {
   const overpay = total - amount;
 
   return [
-    ['Ежемесячный платёж', payment.toFixed(2) + '&nbsp;₽'],
-    ['Общая сумма выплат', total.toFixed(2) + '&nbsp;₽'],
-    ['Переплата', overpay.toFixed(2) + '&nbsp;₽']
+    ['Ежемесячный платёж', formatMoney(payment)],
+    ['Общая сумма выплат', formatMoney(total)],
+    ['Переплата', formatMoney(overpay)]
   ];
 }
 
+// Калькулятор инвестиций
 function calculateInvestment(initial, monthly, years, rate) {
   const monthlyRate = rate / 100 / 12;
   const months = years * 12;
@@ -115,15 +227,15 @@ function calculateInvestment(initial, monthly, years, rate) {
   const profit = futureValue - invested;
 
   return [
-    ['Итоговая сумма', futureValue.toFixed(2) + '&nbsp;₽'],
-    ['Вложено всего', invested.toFixed(2) + '&nbsp;₽'],
-    ['Прибыль', profit.toFixed(2) + '&nbsp;₽']
+    ['Итоговая сумма', formatMoney(futureValue)],
+    ['Вложено всего', formatMoney(invested)],
+    ['Прибыль', formatMoney(profit)]
   ];
 }
 
+// Калькулятор сложных процентов
 function calculateCompound(initial, monthly, years, rate) {
-  const annualRate = rate / 100;
-  const monthlyRate = annualRate / 12;
+  const monthlyRate = rate / 100 / 12;
   const months = years * 12;
 
   let futureValue = initial * Math.pow(1 + monthlyRate, months);
@@ -135,12 +247,13 @@ function calculateCompound(initial, monthly, years, rate) {
   const profit = futureValue - invested;
 
   return [
-    ['Итоговая сумма', futureValue.toFixed(2) + '&nbsp;₽'],
-    ['Вложено всего', invested.toFixed(2) + '&nbsp;₽'],
-    ['Прибыль', profit.toFixed(2) + '&nbsp;₽']
+    ['Итоговая сумма', formatMoney(futureValue)],
+    ['Вложено всего', formatMoney(invested)],
+    ['Прибыль', formatMoney(profit)]
   ];
 }
 
+// Калькулятор цели
 function calculateGoal(goal, years, rate, initial) {
   const annualRate = rate / 100;
   const monthlyRate = annualRate / 12;
@@ -148,16 +261,14 @@ function calculateGoal(goal, years, rate, initial) {
 
   const futureInitial = initial * Math.pow(1 + annualRate, years);
   const needed = goal - futureInitial;
-  let monthly = needed / ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+  let monthly = needed > 0 ? needed / ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) : 0;
 
-  if (monthly < 0) {
-    monthly = 0;
-  }
+  if (monthly < 0) monthly = 0;
 
   return [
-    ['Необходимый ежемесячный вклад', monthly.toFixed(2) + '&nbsp;₽'],
-    ['Ваша имеющаяся сумма через ' + years + ' лет', futureInitial.toFixed(2) + '&nbsp;₽'],
-    ['Недостающая сумма', needed.toFixed(2) + '&nbsp;₽']
+    ['Необходимый ежемесячный вклад', formatMoney(monthly)],
+    ['Ваша сумма через ' + years + ' лет', formatMoney(futureInitial)],
+    ['Недостающая сумма', formatMoney(Math.max(0, needed))]
   ];
 }
 
@@ -168,13 +279,14 @@ function initCalculators() {
   if (creditForm) {
     creditForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      const amount = validatePositiveNumber(document.getElementById("amount").value, "Сумма кредита");
-      const months = validatePositiveNumber(document.getElementById("months").value, "Срок");
-      const rate = validatePositiveNumber(document.getElementById("rate").value, "Ставка");
+      const amount = validatePositiveNumber(document.getElementById("amount").value, "Сумма кредита", 100000000);
+      const months = validatePositiveNumber(document.getElementById("months").value, "Срок (месяцев)", 600);
+      const rate = validatePositiveNumber(document.getElementById("rate").value, "Ставка", 100);
 
       if (amount && months && rate) {
         const data = calculateCredit(amount, months, rate);
         updateResultsTable("result", data);
+        showNotification('Расчёт выполнен успешно!', 'success');
       }
     });
   }
@@ -184,13 +296,14 @@ function initCalculators() {
   if (depositForm) {
     depositForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      const amount = validatePositiveNumber(document.getElementById("depositAmount").value, "Сумма вклада");
-      const months = validatePositiveNumber(document.getElementById("depositMonths").value, "Срок");
-      const rate = validatePositiveNumber(document.getElementById("depositRate").value, "Ставка");
+      const amount = validatePositiveNumber(document.getElementById("depositAmount").value, "Сумма вклада", 100000000);
+      const months = validatePositiveNumber(document.getElementById("depositMonths").value, "Срок (месяцев)", 600);
+      const rate = validatePositiveNumber(document.getElementById("depositRate").value, "Ставка", 100);
 
       if (amount && months && rate) {
         const data = calculateDeposit(amount, months, rate);
         updateResultsTable("depositResult", data);
+        showNotification('Расчёт выполнен успешно!', 'success');
       }
     });
   }
@@ -200,13 +313,14 @@ function initCalculators() {
   if (mortgageForm) {
     mortgageForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      const amount = validatePositiveNumber(document.getElementById("mortgageAmount").value, "Сумма ипотеки");
-      const years = validatePositiveNumber(document.getElementById("mortgageYears").value, "Срок");
-      const rate = validatePositiveNumber(document.getElementById("mortgageRate").value, "Ставка");
+      const amount = validatePositiveNumber(document.getElementById("mortgageAmount").value, "Сумма ипотеки", 100000000);
+      const years = validatePositiveNumber(document.getElementById("mortgageYears").value, "Срок (лет)", 50);
+      const rate = validatePositiveNumber(document.getElementById("mortgageRate").value, "Ставка", 100);
 
       if (amount && years && rate) {
         const data = calculateMortgage(amount, years, rate);
         updateResultsTable("mortgageResult", data);
+        showNotification('Расчёт выполнен успешно!', 'success');
       }
     });
   }
@@ -216,16 +330,15 @@ function initCalculators() {
   if (investForm) {
     investForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      const amount = document.getElementById("investAmount").value === '' ? 0 : parseFloat(document.getElementById("investAmount").value);
-      const monthly = document.getElementById("investMonthly").value === '' ? 0 : parseFloat(document.getElementById("investMonthly").value);
-      const years = validatePositiveNumber(document.getElementById("investYears").value, "Срок");
-      const rate = document.getElementById("investRate").value === '' ? 0 : parseFloat(document.getElementById("investRate").value);
+      const amount = parseFloat(document.getElementById("investAmount").value) || 0;
+      const monthly = parseFloat(document.getElementById("investMonthly").value) || 0;
+      const years = validatePositiveNumber(document.getElementById("investYears").value, "Срок (лет)", 50);
+      const rate = parseFloat(document.getElementById("investRate").value) || 0;
 
-      if (amount >= 0 && monthly >= 0 && years && rate >= 0) {
+      if (years) {
         const data = calculateInvestment(amount, monthly, years, rate);
         updateResultsTable("investResult", data);
-      } else {
-        alert("Ошибка: Проверьте введенные значения");
+        showNotification('Расчёт выполнен успешно!', 'success');
       }
     });
   }
@@ -235,187 +348,226 @@ function initCalculators() {
   if (compoundForm) {
     compoundForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      const amount = document.getElementById("compoundAmount").value === '' ? 0 : parseFloat(document.getElementById("compoundAmount").value);
-      const monthly = document.getElementById("compoundMonthly").value === '' ? 0 : parseFloat(document.getElementById("compoundMonthly").value);
-      const years = validatePositiveNumber(document.getElementById("compoundYears").value, "Срок");
-      const rate = document.getElementById("compoundRate").value === '' ? 0 : parseFloat(document.getElementById("compoundRate").value);
+      const amount = parseFloat(document.getElementById("compoundAmount").value) || 0;
+      const monthly = parseFloat(document.getElementById("compoundMonthly").value) || 0;
+      const years = validatePositiveNumber(document.getElementById("compoundYears").value, "Срок (лет)", 50);
+      const rate = parseFloat(document.getElementById("compoundRate").value) || 0;
 
-      if (amount >= 0 && monthly >= 0 && years && rate >= 0) {
+      if (years) {
         const data = calculateCompound(amount, monthly, years, rate);
         updateResultsTable("compoundResult", data);
-      } else {
-        alert("Ошибка: Проверьте введенные значения");
+        showNotification('Расчёт выполнен успешно!', 'success');
       }
     });
   }
 
-  // Калькулятор достижения финансовой цели
+  // Калькулятор цели
   const goalForm = document.getElementById("goalForm");
   if (goalForm) {
     goalForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      const goal = validatePositiveNumber(document.getElementById("goalAmount").value, "Целевая сумма");
-      const years = validatePositiveNumber(document.getElementById("goalYears").value, "Срок");
-      const rate = document.getElementById("goalRate").value === '' ? 0 : parseFloat(document.getElementById("goalRate").value);
-      const initial = document.getElementById("goalInitial").value === '' ? 0 : parseFloat(document.getElementById("goalInitial").value);
+      const goal = validatePositiveNumber(document.getElementById("goalAmount").value, "Целевая сумма", 100000000);
+      const years = validatePositiveNumber(document.getElementById("goalYears").value, "Срок (лет)", 50);
+      const rate = parseFloat(document.getElementById("goalRate").value) || 0;
+      const initial = parseFloat(document.getElementById("goalInitial").value) || 0;
 
-      if (goal && years && rate >= 0 && initial >= 0) {
+      if (goal && years) {
         const data = calculateGoal(goal, years, rate, initial);
         updateResultsTable("goalResult", data);
-      } else {
-        alert("Ошибка: Проверьте введенные значения");
+        showNotification('Расчёт выполнен успешно!', 'success');
       }
     });
   }
 }
 
-// Инициализация теста на риск
+// ========== Тест на риск ==========
+
 function initRiskTest() {
   const riskForm = document.getElementById("riskForm");
-  if (riskForm) {
-    riskForm.addEventListener("submit", function(e) {
-      e.preventDefault();
+  if (!riskForm) return;
 
-      let score = 0;
-      for (let i = 1; i <= 10; i++) {
-        const value = document.querySelector(`input[name="q${i}"]:checked`);
-        if (!value) {
-          alert("Пожалуйста, ответьте на все вопросы.");
-          return;
-        }
+  riskForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let score = 0;
+    let answeredQuestions = 0;
+    
+    for (let i = 1; i <= 10; i++) {
+      const value = document.querySelector(`input[name="q${i}"]:checked`);
+      if (value) {
         score += parseInt(value.value);
+        answeredQuestions++;
       }
+    }
 
-      let profile = "";
-      let explanation = "";
-      if (score <= 17) {
-        profile = "Консервативный";
-        explanation = "Подходит для сохранения капитала. Вы предпочитаете стабильность и готовы к низкой доходности. Идеально для тех, кто не хочет рисковать своими сбережениями.";
-      } else if (score <= 28) {
-        profile = "Умеренный";
-        explanation = "Баланс между риском и доходностью. Вы готовы к умеренным колебаниям рынка ради стабильного роста капитала.";
-      } else {
-        profile = "Агрессивный";
-        explanation = "Максимальная доходность при высоком риске. Вы готовы к значительным колебаниям и долгосрочным инвестициям.";
-      }
+    if (answeredQuestions < 10) {
+      showNotification(`Пожалуйста, ответьте на все вопросы. Осталось: ${10 - answeredQuestions}`, 'error');
+      return;
+    }
 
-      const result = document.getElementById("riskResult");
-      result.innerHTML = `<h3>Ваш профиль риска: <strong>${profile}</strong></h3><p>${explanation}</p><button id="retryRiskTest" class="risk-btn">Пройти заново</button>`;
+    let profile = "";
+    let emoji = "";
+    let explanation = "";
+    
+    if (score <= 17) {
+      profile = "Консервативный";
+      emoji = "🛡️";
+      explanation = "Подходит для сохранения капитала. Вы предпочитаете стабильность и готовы к низкой доходности. Идеально для тех, кто не хочет рисковать своими сбережениями.";
+    } else if (score <= 28) {
+      profile = "Умеренный";
+      emoji = "⚖️";
+      explanation = "Баланс между риском и доходностью. Вы готовы к умеренным колебаниям рынка ради стабильного роста капитала.";
+    } else {
+      profile = "Агрессивный";
+      emoji = "🚀";
+      explanation = "Максимальная доходность при высоком риске. Вы готовы к значительным колебаниям и долгосрочным инвестициям.";
+    }
 
-      // Добавляем обработчик для кнопки "Пройти заново"
-      document.getElementById("retryRiskTest").addEventListener("click", function() {
-        riskForm.reset();
-        result.innerHTML = "";
-        document.getElementById("portfolioBlock").innerHTML = "";
-      });
+    const result = document.getElementById("riskResult");
+    result.innerHTML = `
+      <h3>${emoji} Ваш профиль риска: <strong>${profile}</strong></h3>
+      <p>${explanation}</p>
+      <p style="margin-top: 1rem; color: var(--text-secondary);">Баллы: ${score}/40</p>
+      <button id="retryRiskTest" class="risk-btn" style="margin-top: 1rem;">🔄 Пройти заново</button>
+    `;
+    
+    result.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-      generatePortfolio(profile);
+    document.getElementById("retryRiskTest").addEventListener("click", function() {
+      riskForm.reset();
+      result.innerHTML = '';
+      document.getElementById("portfolioBlock").innerHTML = '';
+      showNotification('Тест сброшен. Ответьте на вопросы снова.', 'info');
     });
-  }
+
+    generatePortfolio(profile);
+    showNotification('Тест пройден! Ваш профиль определён.', 'success');
+  });
 }
 
 function generatePortfolio(profile) {
   const block = document.getElementById("portfolioBlock");
+  if (!block) return;
 
-  let sets = {
+  const sets = {
     "Консервативный": [
-      ["Облигации", "70%"],
-      ["ETF", "20%"],
-      ["Акции", "10%"]
+      ["🏦 Облигации", "70%"],
+      ["📊 ETF", "20%"],
+      ["📈 Акции", "10%"]
     ],
     "Умеренный": [
-      ["Облигации", "45%"],
-      ["ETF", "35%"],
-      ["Акции", "20%"]
+      ["🏦 Облигации", "45%"],
+      ["📊 ETF", "35%"],
+      ["📈 Акции", "20%"]
     ],
     "Агрессивный": [
-      ["Облигации", "15%"],
-      ["ETF", "35%"],
-      ["Акции", "50%"]
+      ["🏦 Облигации", "15%"],
+      ["📊 ETF", "35%"],
+      ["📈 Акции", "50%"]
     ]
   };
 
   let html = `
-    <h3>Рекомендуемый портфель:</h3>
-    <table class="portfolio-table">
-      <tr><th>Актив</th><th>Доля</th></tr>
+    <div class="portfolio-recommendation">
+      <h3 style="text-align: center; margin-bottom: 1.5rem;">💼 Рекомендуемый портфель</h3>
+      <table class="portfolio-table">
+        <thead>
+          <tr><th>Актив</th><th>Доля</th></tr>
+        </thead>
+        <tbody>
   `;
 
   sets[profile].forEach(row => {
-    html += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
+    html += `<tr><td>${row[0]}</td><td><strong>${row[1]}</strong></td></tr>`;
   });
 
-  html += "</table>";
+  html += '</tbody></table></div>';
 
   block.innerHTML = html;
+  block.style.animation = 'fadeInUp 0.5s ease';
 }
 
-// Инициализация симулятора трейдинга
+// ========== Симулятор трейдинга ==========
+
+let tradingChart = null;
+let candleSeries = null;
+
 function initTradingSimulator() {
+  const priceEl = document.getElementById('price');
+  if (!priceEl) return;
+
   let price = 100;
   let balance = 100000;
   let stocks = 0;
   const candles = [];
   const transactions = [];
 
-  const priceEl = document.getElementById('price');
+  const priceEl_ = document.getElementById('price');
   const balanceEl = document.getElementById('balance');
   const stocksEl = document.getElementById('stocks');
   const portfolioEl = document.getElementById('portfolio');
   const logEl = document.getElementById('log');
 
-  if (!priceEl) return; // Если элементы не найдены, выходим
-
   function updateUI() {
-    priceEl.textContent = price.toFixed(2);
-    balanceEl.textContent = balance.toFixed(2);
+    priceEl_.textContent = formatMoney(price).replace(' ₽', '');
+    balanceEl.textContent = formatMoney(balance).replace(' ₽', '');
     stocksEl.textContent = stocks;
-    portfolioEl.textContent = (balance + stocks * price).toFixed(2);
+    portfolioEl.textContent = formatMoney(balance + stocks * price).replace(' ₽', '');
   }
 
+  // Инициализация графика
   const chartContainer = document.getElementById('chart');
-  let chart, candleSeries;
-
   if (chartContainer) {
-    chart = LightweightCharts.createChart(chartContainer, {
+    const isDark = document.body.classList.contains('dark-theme');
+    tradingChart = LightweightCharts.createChart(chartContainer, {
       layout: {
-        textColor: '#000',
-        backgroundColor: '#fff',
+        textColor: isDark ? '#d1d5db' : '#374151',
+        backgroundColor: isDark ? '#1f2937' : '#ffffff',
+      },
+      grid: {
+        vertLines: { color: isDark ? '#374151' : '#e5e7eb' },
+        horzLines: { color: isDark ? '#374151' : '#e5e7eb' },
       },
       rightPriceScale: {
-        borderVisible: true,
+        borderColor: isDark ? '#4b5563' : '#d1d5db',
       },
       timeScale: {
-        borderVisible: true,
+        borderColor: isDark ? '#4b5563' : '#d1d5db',
       }
     });
-    candleSeries = chart.addCandlestickSeries({
-      upColor: '#26a69a',
-      downColor: '#ef5350',
-      borderVisible: false,
-      wickVisible: true
+    
+    candleSeries = tradingChart.addCandlestickSeries({
+      upColor: '#10b981',
+      downColor: '#ef4444',
+      borderUpColor: '#10b981',
+      borderDownColor: '#ef4444',
+      wickUpColor: '#10b981',
+      wickDownColor: '#ef4444'
     });
   }
 
   function newCandle() {
-    const now = Date.now() / 1000;
+    const now = Math.floor(Date.now() / 1000);
     const open = price;
-    const change = price * (Math.random() * 0.04 - 0.02);
+    const change = price * (Math.random() * 0.06 - 0.03);
     const close = Math.max(1, price + change);
-    const high = Math.max(open, close) + Math.random() * 1.5;
-    const low = Math.min(open, close) - Math.random() * 1.5;
+    const high = Math.max(open, close) + Math.random() * 2;
+    const low = Math.min(open, close) - Math.random() * 2;
     price = close;
 
     const candle = { time: now, open: open, high: high, low: low, close: close };
     candles.push(candle);
-    if (candles.length > 40) candles.shift();
+    if (candles.length > 50) candles.shift();
 
     if (candleSeries) {
       candleSeries.setData(candles);
-      chart.timeScale().fitContent();
+      tradingChart.timeScale().fitContent();
     }
     updateUI();
-    logEl.textContent = `📈 Новая свеча: ${close.toFixed(2)} ₽`;
+    
+    const direction = change >= 0 ? '📈' : '📉';
+    logEl.textContent = `${direction} Новый тик: ${formatMoney(price).replace(' ₽', '')}`;
+    logEl.style.borderLeftColor = change >= 0 ? 'var(--success-color)' : 'var(--danger-color)';
   }
 
   function resetSimulator() {
@@ -425,24 +577,39 @@ function initTradingSimulator() {
     candles.length = 0;
     transactions.length = 0;
     updateUI();
-    logEl.textContent = "Симулятор сброшен. Начните заново!";
+    logEl.textContent = "🔄 Симулятор сброшен. Начните заново!";
+    logEl.style.borderLeftColor = 'var(--lesson-link)';
     if (candleSeries) candleSeries.setData([]);
-    document.getElementById('transactionHistory').innerHTML = '';
+    document.getElementById('transactionHistory').innerHTML = '<tr><th>Время</th><th>Тип</th><th>Кол-во</th><th>Цена</th><th>Сумма</th></tr>';
+    showNotification('Симулятор сброшен', 'info');
   }
 
   function addTransaction(type, lots, priceAtTime, total) {
     const transaction = {
-      time: new Date().toLocaleTimeString(),
+      time: new Date().toLocaleTimeString('ru-RU'),
       type: type,
       lots: lots,
       price: priceAtTime.toFixed(2),
       total: total.toFixed(2)
     };
-    transactions.push(transaction);
+    transactions.unshift(transaction);
 
     const historyEl = document.getElementById('transactionHistory');
     if (historyEl) {
-      const row = `<tr><td>${transaction.time}</td><td>${transaction.type}</td><td>${transaction.lots}</td><td>${transaction.price} ₽</td><td>${transaction.total} ₽</td></tr>`;
+      const row = `
+        <tr style="animation: fadeIn 0.3s ease;">
+          <td>${transaction.time}</td>
+          <td style="color: ${type === 'Покупка' ? 'var(--success-color)' : 'var(--danger-color)'}">
+            ${type === 'Покупка' ? '🟢 Куплено' : '🔴 Продано'}
+          </td>
+          <td>${transaction.lots}</td>
+          <td>${transaction.price} ₽</td>
+          <td>${transaction.total} ₽</td>
+        </tr>
+      `;
+      const header = historyEl.querySelector('tr');
+      historyEl.innerHTML = '';
+      historyEl.appendChild(header);
       historyEl.innerHTML += row;
     }
   }
@@ -454,34 +621,42 @@ function initTradingSimulator() {
 
   if (buyBtn) {
     buyBtn.addEventListener("click", () => {
-      const lots = Math.max(1, parseInt(lotInput.value) || 1);
+      const lots = Math.max(1, parseInt(lotInput?.value) || 1);
       const totalCost = lots * price;
 
       if (balance >= totalCost) {
         balance -= totalCost;
         stocks += lots;
         updateUI();
-        logEl.textContent = `🟢 Куплено ${lots} ${lots === 1 ? "акция" : "акций"} по ${price.toFixed(2)} ₽ (итого: ${totalCost.toFixed(2)} ₽)`;
+        logEl.textContent = `🟢 Куплено ${lots} акций по ${formatMoney(price).replace(' ₽', '')} (Итого: ${formatMoney(totalCost).replace(' ₽', '')})`;
+        logEl.style.borderLeftColor = 'var(--success-color)';
         addTransaction('Покупка', lots, price, totalCost);
+        showNotification(`Куплено ${lots} акций`, 'success');
       } else {
-        logEl.textContent = "⚠️ Недостаточно средств";
+        logEl.textContent = "⚠️ Недостаточно средств!";
+        logEl.style.borderLeftColor = 'var(--danger-color)';
+        showNotification('Недостаточно средств для покупки', 'error');
       }
     });
   }
 
   if (sellBtn) {
     sellBtn.addEventListener("click", () => {
-      const lots = Math.max(1, parseInt(lotInput.value) || 1);
+      const lots = Math.max(1, parseInt(lotInput?.value) || 1);
 
       if (stocks >= lots) {
         const totalGain = lots * price;
         balance += totalGain;
         stocks -= lots;
         updateUI();
-        logEl.textContent = `🔴 Продано ${lots} ${lots === 1 ? "акция" : "акций"} по ${price.toFixed(2)} ₽ (итого: ${totalGain.toFixed(2)} ₽)`;
+        logEl.textContent = `🔴 Продано ${lots} акций по ${formatMoney(price).replace(' ₽', '')} (Итого: ${formatMoney(totalGain).replace(' ₽', '')})`;
+        logEl.style.borderLeftColor = 'var(--danger-color)';
         addTransaction('Продажа', lots, price, totalGain);
+        showNotification(`Продано ${lots} акций`, 'success');
       } else {
-        logEl.textContent = "⚠️ Недостаточно акций";
+        logEl.textContent = "⚠️ Недостаточно акций для продажи!";
+        logEl.style.borderLeftColor = 'var(--danger-color)';
+        showNotification('Недостаточно акций', 'error');
       }
     });
   }
@@ -491,23 +666,48 @@ function initTradingSimulator() {
   }
 
   updateUI();
-  for (let i = 0; i < 5; i++) newCandle();
-  setInterval(newCandle, 4000);
+  for (let i = 0; i < 10; i++) newCandle();
+  setInterval(newCandle, 3000);
 }
 
-// Функции для навигации по статьям
-function showCategory(categoryId) {
-  // Скрыть все категории
-  const categories = document.querySelectorAll('.article-category');
-  categories.forEach(cat => cat.style.display = 'none');
+// Обновление темы графика
+function updateChartTheme() {
+  if (!tradingChart) return;
+  
+  const isDark = document.body.classList.contains('dark-theme');
+  
+  tradingChart.applyOptions({
+    layout: {
+      textColor: isDark ? '#d1d5db' : '#374151',
+      backgroundColor: isDark ? '#1f2937' : '#ffffff',
+    },
+    grid: {
+      vertLines: { color: isDark ? '#374151' : '#e5e7eb' },
+      horzLines: { color: isDark ? '#374151' : '#e5e7eb' },
+    },
+    rightPriceScale: {
+      borderColor: isDark ? '#4b5563' : '#d1d5db',
+    },
+    timeScale: {
+      borderColor: isDark ? '#4b5563' : '#d1d5db',
+    }
+  });
+}
 
-  // Показать выбранную категорию
+// ========== Статьи ==========
+
+function showCategory(categoryId) {
+  const categories = document.querySelectorAll('.article-category');
+  categories.forEach(cat => {
+    cat.style.display = 'none';
+    cat.style.animation = 'fadeIn 0.3s ease';
+  });
+
   const selectedCategory = document.getElementById(categoryId);
   if (selectedCategory) {
     selectedCategory.style.display = 'block';
   }
 
-  // Обновить активную кнопку
   const buttons = document.querySelectorAll('.article-nav-btn');
   buttons.forEach(btn => btn.classList.remove('active'));
 
@@ -516,23 +716,81 @@ function showCategory(categoryId) {
     activeButton.classList.add('active');
   }
 
-  // Сохранить активную категорию в localStorage
   localStorage.setItem('activeArticleCategory', categoryId);
 }
 
-// Инициализация активной категории статей при загрузке страницы
 function initArticleCategory() {
   const savedCategory = localStorage.getItem('activeArticleCategory') || 'basics';
   showCategory(savedCategory);
 }
 
-// Инициализация
-window.addEventListener('scroll', revealOnScroll);
-window.addEventListener('load', () => {
+// ========== Контактная форма ==========
+
+function initContactForm() {
+  const contactForm = document.querySelector('.contact-form');
+  if (!contactForm) return;
+  
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = contactForm.querySelector('input[type="text"]')?.value;
+    const email = contactForm.querySelector('input[type="email"]')?.value;
+    const message = contactForm.querySelector('textarea')?.value;
+    
+    if (name && email && message) {
+      showNotification('Сообщение отправлено! Мы свяжемся с вами.', 'success');
+      contactForm.reset();
+    } else {
+      showNotification('Пожалуйста, заполните все поля', 'error');
+    }
+  });
+}
+
+// ========== Инициализация ==========
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Добавляем CSS для уведомлений
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Инициализация функций
   revealOnScroll();
-  if (document.getElementById('theme-toggle')) initThemeToggle();
+  initThemeToggle();
+  initMobileMenu();
   initCalculators();
   initRiskTest();
   initTradingSimulator();
-  if (document.querySelector('.article-nav')) initArticleCategory();
+  initContactForm();
+  
+  if (document.querySelector('.article-nav')) {
+    initArticleCategory();
+  }
+  
+  // Слушатель скролла
+  window.addEventListener('scroll', revealOnScroll);
+  
+  // Первоначальный вызов для видимых элементов
+  revealOnScroll();
 });

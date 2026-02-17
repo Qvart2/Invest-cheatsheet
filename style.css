@@ -1,493 +1,1042 @@
+/* ========== CSS Variables & Theme ========== */
 :root {
-  --bg-color: #f5f5f5;
-  --text-color: #222;
-  --header-bg: #111;
-  --header-text: #fff;
-  --nav-link: #ccc;
-  --nav-hover-bg: rgba(255, 255, 255, 0.12);
-  --nav-hover-border: rgba(255, 255, 255, 0.53);
-  --h2-color: #111;
-  --p-color: #444;
-  --form-bg: #f9f9f9;
-  --form-border: #ccc;
-  --footer-bg: #111;
-  --footer-text: #ddd;
-  --footer-link: #bbb;
-  --footer-border: #333;
-  --post-border: #ddd;
-  --post-h3: #111;
-  --post-small: #777;
-  --calc-bg: #f5f5f5;
-  --calc-bg-alt: #f9f9f9;
-  --lesson-bg: #fafafa;
-  --lesson-border: #ddd;
-  --lesson-h3: #111;
-  --lesson-p: #333;
-  --lesson-link: #000;
-  --lesson-link-hover: #333;
-  --sim-bg: #fafafa;
-  --sim-info: #333;
-  --sim-log-bg: #f0f0f0;
-  --sim-log-border: #ddd;
-  --risk-bg: #fafafa;
-  --risk-border: #ddd;
-  --risk-p: #111;
-  --risk-label: #333;
-  --table-border: #ccc;
-  --table-th-bg: #f2f2f2;
-  --table-td-bg: #fff;
-  --radio-border: #111;
-  --radio-checked: #000;
-  --radio-after: #fff;
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success-color: #10b981;
+  --danger-color: #ef4444;
+  --warning-color: #f59e0b;
+  
+  --bg-color: #f8fafc;
+  --text-color: #1e293b;
+  --text-secondary: #64748b;
+  --header-bg: #ffffff;
+  --header-text: #1e293b;
+  --nav-link: #64748b;
+  --nav-hover-bg: rgba(37, 99, 235, 0.1);
+  --nav-hover-border: rgba(37, 99, 235, 0.3);
+  --h2-color: #1e293b;
+  --p-color: #475569;
+  --form-bg: #ffffff;
+  --form-border: #e2e8f0;
+  --footer-bg: #1e293b;
+  --footer-text: #94a3b8;
+  --footer-link: #cbd5e1;
+  --footer-border: #334155;
+  --post-border: #e2e8f0;
+  --post-h3: #1e293b;
+  --post-small: #64748b;
+  --calc-bg: #ffffff;
+  --calc-bg-alt: #f1f5f9;
+  --lesson-bg: #ffffff;
+  --lesson-border: #e2e8f0;
+  --lesson-h3: #1e293b;
+  --lesson-p: #475569;
+  --lesson-link: #2563eb;
+  --lesson-link-hover: #1d4ed8;
+  --sim-bg: #f8fafc;
+  --sim-info: #334155;
+  --sim-log-bg: #f1f5f9;
+  --sim-log-border: #e2e8f0;
+  --risk-bg: #ffffff;
+  --risk-border: #e2e8f0;
+  --risk-p: #1e293b;
+  --risk-label: #475569;
+  --table-border: #e2e8f0;
+  --table-th-bg: #f1f5f9;
+  --table-td-bg: #ffffff;
+  --radio-border: #2563eb;
+  --radio-checked: #2563eb;
+  --radio-after: #ffffff;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.2);
+  
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  
+  --gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
 }
 
 .dark-theme {
-  --bg-color: #121212;
-  --text-color: #e0e0e0;
-  --header-bg: #1e1e1e;
-  --header-text: #e0e0e0;
-  --nav-link: #b0b0b0;
-  --nav-hover-bg: rgba(255, 255, 255, 0.1);
-  --nav-hover-border: rgba(255, 255, 255, 0.3);
-  --h2-color: #e0e0e0;
-  --p-color: #b0b0b0;
-  --form-bg: #2a2a2a;
-  --form-border: #555;
-  --footer-bg: #1e1e1e;
-  --footer-text: #b0b0b0;
-  --footer-link: #888;
-  --footer-border: #555;
-  --post-border: #555;
-  --post-h3: #e0e0e0;
-  --post-small: #888;
-  --calc-bg: #2a2a2a;
-  --calc-bg-alt: #1e1e1e;
-  --lesson-bg: #1e1e1e;
-  --lesson-border: #555;
-  --lesson-h3: #e0e0e0;
-  --lesson-p: #b0b0b0;
-  --lesson-link: #e0e0e0;
-  --lesson-link-hover: #fff;
-  --sim-bg: #1e1e1e;
-  --sim-info: #b0b0b0;
-  --sim-log-bg: #2a2a2a;
-  --sim-log-border: #555;
-  --risk-bg: #1e1e1e;
-  --risk-border: #555;
-  --risk-p: #e0e0e0;
-  --risk-label: #b0b0b0;
-  --table-border: #555;
-  --table-th-bg: #2a2a2a;
-  --table-td-bg: #121212;
-  --radio-border: #e0e0e0;
-  --radio-checked: #e0e0e0;
-  --radio-after: #121212;
+  --bg-color: #0f172a;
+  --text-color: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --header-bg: #1e293b;
+  --header-text: #f1f5f9;
+  --nav-link: #94a3b8;
+  --nav-hover-bg: rgba(37, 99, 235, 0.2);
+  --nav-hover-border: rgba(37, 99, 235, 0.4);
+  --h2-color: #f1f5f9;
+  --p-color: #cbd5e1;
+  --form-bg: #1e293b;
+  --form-border: #334155;
+  --footer-bg: #0f172a;
+  --footer-text: #64748b;
+  --footer-link: #94a3b8;
+  --footer-border: #334155;
+  --post-border: #334155;
+  --post-h3: #f1f5f9;
+  --post-small: #64748b;
+  --calc-bg: #1e293b;
+  --calc-bg-alt: #0f172a;
+  --lesson-bg: #1e293b;
+  --lesson-border: #334155;
+  --lesson-h3: #f1f5f9;
+  --lesson-p: #cbd5e1;
+  --lesson-link: #60a5fa;
+  --lesson-link-hover: #93c5fd;
+  --sim-bg: #1e293b;
+  --sim-info: #cbd5e1;
+  --sim-log-bg: #0f172a;
+  --sim-log-border: #334155;
+  --risk-bg: #1e293b;
+  --risk-border: #334155;
+  --risk-p: #f1f5f9;
+  --risk-label: #cbd5e1;
+  --table-border: #334155;
+  --table-th-bg: #0f172a;
+  --table-td-bg: #1e293b;
+  --radio-border: #60a5fa;
+  --radio-checked: #60a5fa;
+  --radio-after: #0f172a;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(96, 165, 250, 0.3);
+  
+  --gradient-card: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
 }
 
+/* ========== Base Styles ========== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Arial, sans-serif;
 }
 
-html, body {
-  height: 100%;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
+  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
-  transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
+  transition: background var(--transition-normal), color var(--transition-normal);
 }
 
-/* Контейнер */
+/* ========== Typography ========== */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+h1 { font-size: 1.75rem; }
+h2 { font-size: 2rem; margin-bottom: 1rem; }
+h3 { font-size: 1.35rem; }
+h4 { font-size: 1.1rem; }
+
+p {
+  color: var(--p-color);
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--lesson-link);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--lesson-link-hover);
+}
+
+/* ========== Layout ========== */
 .container {
   width: 90%;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Хэдер */
+/* ========== Header ========== */
 header {
   background: var(--header-bg);
   color: var(--header-text);
-  padding: 15px 0;
-  transition: background 0.3s;
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
 }
 
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
 
 .logo {
   font-size: 1.4rem;
-  font-weight: bold;
-  letter-spacing: 1px;
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
+.logo::before {
+  content: "📈";
+  -webkit-text-fill-color: initial;
+}
+
+/* Navigation */
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 20px;
+  gap: 0.25rem;
 }
 
 .nav-links a {
   color: var(--nav-link);
   text-decoration: none;
-  transition: 0.3s;
-}
-
-.nav-links a:hover,
-.nav-links .active {
-  padding: 5px;
-  background: var(--nav-hover-bg);
-  border-radius: 10px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  border: 1px solid var(--nav-hover-border);
-}
-
-.theme-toggle-btn {
-  background: var(--header-bg);
-  color: var(--header-text);
-  border: 1px solid var(--nav-hover-border);
-  padding: 8px 12px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
   font-size: 0.9rem;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: all var(--transition-normal);
+  transform: translateX(-50%);
+}
+
+.nav-links a:hover {
+  color: var(--lesson-link);
+  background: var(--nav-hover-bg);
+}
+
+.nav-links a:hover::before {
+  width: 60%;
+}
+
+.nav-links a.active {
+  color: var(--lesson-link);
+  background: var(--nav-hover-bg);
+  box-shadow: var(--shadow-glow);
+}
+
+.nav-links a.active::before {
+  width: 60%;
+}
+
+/* Theme Toggle */
+.theme-toggle-btn {
+  background: var(--form-bg);
+  color: var(--text-color);
+  border: 2px solid var(--form-border);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .theme-toggle-btn:hover {
   background: var(--nav-hover-bg);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-color: var(--lesson-link);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-/* Основной контент */
-main {
-  flex: 1;
-  padding: 50px 0;
+.theme-toggle-btn:active {
+  transform: translateY(0);
 }
 
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-  color: var(--h2-color);
-}
-
-p {
-  color: var(--p-color);
-  margin-bottom: 20px;
-}
-
-/* Форма */
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  padding: 10px;
-  border: 1px solid var(--form-border);
+/* Mobile Menu Button */
+.menu-toggle {
+  display: none;
   background: var(--form-bg);
-  font-size: 1rem;
-}
-
-.contact-form button {
-  background: var(--header-bg);
-  color: var(--header-text);
-  border: none;
-  padding: 10px;
+  border: 2px solid var(--form-border);
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: 0.3s;
+  font-size: 1.25rem;
+  transition: all var(--transition-normal);
 }
 
-.contact-form button:hover {
-  background: var(--footer-border);
+.menu-toggle:hover {
+  background: var(--nav-hover-bg);
+  border-color: var(--lesson-link);
 }
 
-/* Футер */
-footer {
-  background: var(--footer-bg);
-  color: var(--footer-text);
-  padding: 40px 0 20px 0;
-  margin-top: auto;
-  border-top: 2px solid var(--footer-border);
-  transition: background 0.3s;
+/* ========== Main Content ========== */
+main {
+  padding: 3rem 0;
+  min-height: calc(100vh - 200px);
 }
 
-.footer-columns {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin-bottom: 20px;
-}
-
-.footer-col {
-  flex: 1;
-  min-width: 200px;
-}
-
-.footer-col h4 {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  color: var(--header-text);
-}
-
-.footer-col p,
-.footer-col a {
-  font-size: 0.95rem;
-  color: var(--footer-link);
-  text-decoration: none;
-}
-
-.footer-col a:hover {
-  color: var(--header-text);
-}
-
-.footer-bottom {
+.hero {
   text-align: center;
-  font-size: 0.9rem;
-  color: var(--footer-link);
-  border-top: 1px solid var(--footer-border);
-  padding-top: 10px;
+  padding: 4rem 2rem;
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 2rem;
 }
 
-
-/* Статьи */
-.post {
-  border-bottom: 1px solid var(--post-border);
-  padding: 20px 0;
+.hero h2 {
+  font-size: 2.5rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  animation: fadeInUp 0.8s ease;
 }
 
-.post h3 {
-  font-size: 1.4rem;
-  margin-bottom: 5px;
-  color: var(--post-h3);
-}
-
-.post small {
-  color: var(--post-small);
-  display: block;
-  margin-bottom: 10px;
-}
-
-.post p {
+.hero p {
+  font-size: 1.15rem;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
   color: var(--p-color);
-  text-align: justify;
 }
 
-/* Блок калькуляторов */
-.calc {
-  background: var(--calc-bg);
+/* ========== Buttons ========== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-secondary {
+  background: var(--form-bg);
+  color: var(--text-color);
+  border: 2px solid var(--form-border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--lesson-link);
+  background: var(--nav-hover-bg);
+}
+
+/* ========== Forms ========== */
+input, textarea, select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--form-border);
+  border-radius: var(--radius-md);
+  background: var(--form-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--lesson-link);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+/* ========== Cards ========== */
+.card {
+  background: var(--gradient-card);
   border: 1px solid var(--form-border);
-  padding: 20px;
-  border-radius: 6px;
-  max-width: 400px;
-  margin: 20px 0;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========== Calculators ========== */
+.calculators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.calc {
+  background: var(--gradient-card);
+  border: 1px solid var(--form-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.calc:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--lesson-link);
 }
 
 .calc h3 {
-  margin-bottom: 15px;
   color: var(--h2-color);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .calc form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
 }
 
-.calc input, .calc button {
-  padding: 10px;
-  font-size: 1rem;
+.calc form label {
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
-.calc button {
-  background: var(--header-bg);
-  color: var(--header-text);
+.calc input {
+  padding: 0.75rem;
+}
+
+.calc button, .risk-btn, .article-nav-btn {
+  background: var(--gradient-primary);
+  color: white;
   border: none;
+  padding: 0.875rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all var(--transition-normal);
 }
 
-.calc button:hover {
-  background: var(--footer-border);
+.calc button:hover, .risk-btn:hover, .article-nav-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
 }
 
 .result {
-  margin-top: 15px;
-  font-size: 1.1rem;
-}
-
-/* Сетка для калькуляторов */
-.calculators-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-/* Карточка калькулятора */
-.calc {
-  flex: 1 1 300px;
-  max-width: 350px;
+  margin-top: 1.25rem;
+  padding: 1rem;
   background: var(--calc-bg-alt);
-  border: 1px solid var(--form-border);
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--lesson-link);
+  animation: fadeIn 0.3s ease;
 }
 
-.calc h3 {
-  margin-bottom: 15px;
-  text-align: center;
-  color: var(--h2-color);
-}
-
-/* Медиа-запросы для адаптации калькуляторов на мобильных */
-@media (max-width: 768px) {
-  .calc {
-    max-width: 100%;
-    flex: 1 1 100%;
-  }
-}
-
-/* Таблица результатов */
 .result table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
 }
 
 .result table td {
-  padding: 8px;
-  border: 1px solid var(--form-border);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--form-border);
 }
 
-.result table td:first-child {
-  background: var(--form-bg);
-  font-weight: bold;
+.result table td:last-child {
+  text-align: right;
+  font-weight: 700;
+  color: var(--success-color);
 }
 
-/* Навигация статей */
-.article-nav {
-  text-align: center;
-  margin: 30px 0;
+.result table tr:last-child td {
+  border-bottom: none;
 }
 
-.nav-buttons {
+/* ========== Risk Test ========== */
+.risk-form {
+  background: var(--gradient-card);
+  border: 1px solid var(--risk-border);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  max-width: 700px;
+  margin: 2rem auto;
+}
+
+.question {
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--form-border);
+}
+
+.question:last-of-type {
+  border-bottom: none;
+}
+
+.question p {
+  font-weight: 600;
+  color: var(--risk-p);
+  margin-bottom: 0.75rem;
+}
+
+.question label {
   display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.article-nav-btn {
-  background: var(--header-bg);
-  color: var(--header-text);
-  border: 1px solid var(--nav-hover-border);
-  padding: 12px 25px;
-  border-radius: 6px;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin: 0.4rem 0;
+  background: var(--calc-bg-alt);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 1rem;
-  transition: 0.3s;
+  transition: all var(--transition-fast);
   font-weight: 500;
 }
 
-.article-nav-btn:hover,
-.article-nav-btn.active {
+.question label:hover {
   background: var(--nav-hover-bg);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: translateX(4px);
+}
+
+.risk-result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  animation: fadeInUp 0.5s ease;
+}
+
+.risk-result h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--lesson-link);
+}
+
+.portfolio-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.portfolio-table th, 
+.portfolio-table td {
+  padding: 0.875rem;
+  border: 1px solid var(--table-border);
+  text-align: center;
+}
+
+.portfolio-table th {
+  background: var(--table-th-bg);
+  font-weight: 700;
+}
+
+.portfolio-table tr:nth-child(even) td {
+  background: var(--calc-bg-alt);
+}
+
+/* ========== Trading Simulator ========== */
+.simulator {
+  background: var(--gradient-card);
+  border: 1px solid var(--sim-log-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  box-shadow: var(--shadow-md);
+}
+
+.sim-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.sim-info p {
+  background: var(--calc-bg-alt);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.sim-info strong {
+  color: var(--lesson-link);
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sim-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.sim-buttons button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.sim-buttons #buy {
+  background: var(--success-color);
+  color: white;
+}
+
+.sim-buttons #buy:hover {
+  background: #059669;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
-.article-nav-btn.active {
-  background: var(--footer-border);
-  border-color: var(--footer-border);
+.sim-buttons #sell {
+  background: var(--danger-color);
+  color: white;
 }
 
-.article-category {
-  transition: opacity 0.3s ease;
+.sim-buttons #sell:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
-/* Учебные статьи (раздел "Учебные материалы") */
+.sim-buttons #resetSimulator {
+  background: var(--form-bg);
+  color: var(--text-color);
+  border: 2px solid var(--form-border);
+}
+
+.sim-buttons #resetSimulator:hover {
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+
+.sim-buttons input[type="number"] {
+  width: 80px;
+  text-align: center;
+}
+
+.chart-container {
+  background: #fff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+#chart {
+  width: 100%;
+  height: 400px;
+}
+
+.sim-log {
+  background: var(--sim-log-bg);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9rem;
+  border-left: 4px solid var(--lesson-link);
+}
+
+.transaction-history {
+  margin-top: 2rem;
+}
+
+.transaction-history h3 {
+  margin-bottom: 1rem;
+}
+
+.transaction-history table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.transaction-history th,
+.transaction-history td {
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid var(--sim-log-border);
+}
+
+.transaction-history th {
+  background: var(--table-th-bg);
+  font-weight: 600;
+}
+
+/* ========== Articles ========== */
 .intro-text {
   font-size: 1.05rem;
   color: var(--lesson-p);
   background: var(--calc-bg-alt);
-  border-left: 4px solid var(--h2-color);
-  padding: 15px 20px;
-  border-radius: 4px;
-  margin-bottom: 30px;
-  line-height: 1.6;
+  border-left: 4px solid var(--lesson-link);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.article-nav {
+  margin: 2rem 0;
+}
+
+.nav-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.article-nav-btn {
+  background: var(--form-bg);
+  color: var(--text-color);
+  border: 2px solid var(--form-border);
+  padding: 0.75rem 1.5rem;
+}
+
+.article-nav-btn:hover {
+  border-color: var(--lesson-link);
+  background: var(--nav-hover-bg);
+}
+
+.article-nav-btn.active {
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: white;
 }
 
 .lesson {
-  background: var(--lesson-bg);
+  background: var(--gradient-card);
   border: 1px solid var(--lesson-border);
-  border-radius: 8px;
-  padding: 25px 30px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
 }
 
 .lesson:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .lesson h3 {
-  font-size: 1.4rem;
-  margin-bottom: 15px;
   color: var(--lesson-h3);
-  border-bottom: 2px solid var(--footer-border);
-  padding-bottom: 5px;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--lesson-link);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lesson h3::before {
+  content: "📚";
 }
 
 .lesson p {
-  margin-bottom: 15px;
   color: var(--lesson-p);
   text-align: justify;
+  margin-bottom: 1rem;
 }
 
 .lesson ul {
-  margin-left: 20px;
-  list-style: disc;
+  margin: 1rem 0 1rem 1.5rem;
 }
 
 .lesson ul li {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   color: var(--p-color);
 }
 
 .lesson a {
   color: var(--lesson-link);
-  font-weight: 500;
-  border-bottom: 1px dashed var(--footer-border);
-  text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  font-weight: 600;
+  border-bottom: 2px dashed var(--lesson-link);
 }
 
 .lesson a:hover {
-  color: var(--lesson-link-hover);
-  border-color: var(--footer-border);
+  border-bottom-style: solid;
 }
 
-/* Плавное появление при скролле */
+/* ========== Contact Form ========== */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.contact-form label {
+  margin-bottom: 0.25rem;
+}
+
+.contact-form button {
+  margin-top: 0.5rem;
+}
+
+/* ========== About Page ========== */
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-card {
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.about-card h3 {
+  margin-bottom: 1rem;
+  color: var(--lesson-link);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.feature-item {
+  background: var(--calc-bg-alt);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: all var(--transition-normal);
+}
+
+.feature-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-item span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* ========== Footer ========== */
+footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 3rem 0 1.5rem;
+  margin-top: auto;
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-col h4 {
+  color: var(--header-text);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.footer-col p,
+.footer-col a {
+  color: var(--footer-link);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-col a {
+  transition: all var(--transition-fast);
+  display: inline-block;
+}
+
+.footer-col a:hover {
+  color: var(--header-text);
+  transform: translateX(4px);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--footer-border);
+  font-size: 0.85rem;
+}
+
+/* ========== Radio Buttons ========== */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--radio-border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  flex-shrink: 0;
+}
+
+input[type="radio"]:hover {
+  border-color: var(--radio-checked);
+  transform: scale(1.1);
+}
+
+input[type="radio"]:checked {
+  background-color: var(--radio-checked);
+  border-color: var(--radio-checked);
+}
+
+input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--radio-after);
+  border-radius: 50%;
+}
+
+/* ========== Animations ========== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Reveal animation */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -499,282 +1048,178 @@ footer {
   transform: translateY(0);
 }
 
-/* Плавные переходы при наведении */
-a, button, .calc, .lesson {
-  transition: all 0.3s ease;
+/* Staggered animations */
+.lesson:nth-child(1) { animation-delay: 0.1s; }
+.lesson:nth-child(2) { animation-delay: 0.2s; }
+.lesson:nth-child(3) { animation-delay: 0.3s; }
+.lesson:nth-child(4) { animation-delay: 0.4s; }
+.lesson:nth-child(5) { animation-delay: 0.5s; }
+.lesson:nth-child(6) { animation-delay: 0.6s; }
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, var(--calc-bg-alt) 25%, var(--form-bg) 50%, var(--calc-bg-alt) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
 }
 
-/* Hover-анимации */
-.calc:hover, .lesson:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+/* ========== Responsive Design ========== */
+@media (max-width: 1024px) {
+  .container {
+    width: 95%;
+  }
 }
 
-/* Плавная прокрутка */
-html {
-  scroll-behavior: smooth;
+@media (max-width: 768px) {
+  .header-container {
+    flex-wrap: wrap;
+  }
+  
+  .menu-toggle {
+    display: block;
+  }
+  
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--header-bg);
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-md);
+    border-top: 1px solid var(--form-border);
+  }
+  
+  .nav-links.active {
+    display: flex;
+    animation: fadeInDown 0.3s ease;
+  }
+  
+  .nav-links a {
+    padding: 0.75rem 1rem;
+    width: 100%;
+  }
+  
+  .theme-toggle-btn {
+    margin-left: auto;
+  }
+  
+  .hero h2 {
+    font-size: 1.75rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .calculators-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .risk-form {
+    padding: 1.25rem;
+  }
+  
+  .question label {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .sim-info {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .footer-columns {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
 }
 
-/* Симулятор трейдинга */
-.simulator {
-  background: var(--sim-bg);
-  border: 1px solid var(--sim-log-border);
-  border-radius: 10px;
-  padding: 25px 30px;
-  margin: 40px auto;
-  max-width: 700px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-  text-align: center;
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.1rem;
+  }
+  
+  .theme-toggle-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.75rem;
+  }
+  
+  .hero {
+    padding: 2rem 1rem;
+  }
+  
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+  
+  .calc, .lesson, .simulator, .risk-form {
+    padding: 1.25rem;
+  }
+  
+  .sim-buttons {
+    flex-direction: column;
+  }
+  
+  .sim-buttons button,
+  .sim-buttons input {
+    width: 100%;
+  }
+  
+  .nav-buttons {
+    flex-direction: column;
+  }
+  
+  .article-nav-btn {
+    width: 100%;
+  }
 }
 
-.simulator h3 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  color: var(--h2-color);
+/* ========== Utility Classes ========== */
+.text-center { text-align: center; }
+.text-success { color: var(--success-color); }
+.text-danger { color: var(--danger-color); }
+.text-warning { color: var(--warning-color); }
+.text-muted { color: var(--text-secondary); }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+
+.hidden { display: none !important; }
+.visible { display: block !important; }
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-.sim-info {
-  text-align: left;
-  line-height: 1.8;
-  font-size: 1rem;
-  margin-bottom: 20px;
-  color: var(--sim-info);
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
 }
 
-.sim-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+::-webkit-scrollbar-thumb {
+  background: var(--form-border);
+  border-radius: 5px;
 }
 
-.sim-buttons button {
-  padding: 10px 25px;
-  border: none;
-  border-radius: 6px;
-  background: var(--header-bg);
-  color: var(--header-text);
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 1rem;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--lesson-link);
 }
 
-.sim-buttons button:hover {
-  background: var(--footer-border);
-}
-
-.sim-log {
-  background: var(--sim-log-bg);
-  border-radius: 6px;
-  padding: 10px;
-  border: 1px solid var(--sim-log-border);
-  font-size: 0.95rem;
-  color: var(--p-color);
-  margin-bottom: 20px;
-}
-
-.chart-container {
-  position: relative;
-  height: 400px;
-  margin: 20px 0;
-  border: 1px solid var(--sim-log-border);
-  border-radius: 6px;
-  background: #fff;
-}
-
-#chart {
-  width: 100%;
-  height: 100%;
-  min-height: 400px;
-}
-
-.transaction-history {
-  margin-top: 30px;
-  text-align: left;
-}
-
-.transaction-history h3 {
-  margin-bottom: 15px;
-  color: var(--h2-color);
-}
-
-.transaction-history table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid var(--sim-log-border);
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.transaction-history th,
-.transaction-history td {
-  border: 1px solid var(--sim-log-border);
-  padding: 8px 12px;
-  text-align: center;
-  font-size: 0.95rem;
-}
-
-.transaction-history th {
-  background: var(--table-th-bg);
-  font-weight: 600;
-  color: var(--text-color);
-}
-
-.transaction-history td {
-  background: var(--table-td-bg);
-  color: var(--text-color);
-}
-
-.sim-info p {
-  font-size: 1rem;
-  margin: 3px 0;
-}
-
-.sim-buttons input[type="number"] {
-  padding: 8px 12px;
-  border: 1px solid var(--form-border);
-  border-radius: 6px;
-  font-size: 1rem;
-  text-align: center;
-  width: 80px;
-  background: var(--form-bg);
-  color: var(--text-color);
-}
-
-.sim-buttons input[type="number"]:focus {
-  outline: none;
-  border-color: var(--header-bg);
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-}
-
-/* тест на профиль риска */
-
-.risk-form {
-  background: var(--risk-bg);
-  border: 1px solid var(--risk-border);
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  max-width: 700px;
-  margin: 30px auto;
-  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-
-.question {
-  margin-bottom: 25px;
-}
-
-.question p {
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: var(--risk-p);
-  transition: color 0.3s;
-}
-
-.question label {
-  display: block;
-  margin: 6px 0;
-  padding-left: 5px;
-  cursor: pointer;
-  color: var(--risk-label);
-  transition: color 0.3s;
-}
-
-.question input[type="radio"] {
-  margin-right: 8px;
-}
-
-.risk-btn {
-  background: var(--header-bg);
-  color: var(--header-text);
-  padding: 12px 20px;
-  border: none;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 10px;
-  transition: 0.3s;
-}
-
-.risk-btn:hover {
-  background: var(--footer-border);
-}
-
-.risk-result {
-  margin-top: 30px;
-  font-size: 1.3rem;
-  font-weight: 600;
-  text-align: center;
-  color: var(--risk-p);
-  transition: color 0.3s;
-}
-
-.portfolio-block {
-  margin-top: 25px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.portfolio-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-  transition: all 0.3s;
-}
-
-.portfolio-table th,
-.portfolio-table td {
-  border: 1px solid var(--table-border);
-  padding: 10px;
-  transition: border-color 0.3s, background 0.3s, color 0.3s;
-}
-
-.portfolio-table th {
-  background: var(--table-th-bg);
-  font-weight: 700;
-  color: var(--text-color);
-}
-
-.portfolio-table td {
-  background: var(--table-td-bg);
-  color: var(--text-color);
-}
-
-input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--radio-border);
-  border-radius: 50%;
-  outline: none;
-  cursor: pointer;
-  transition: 0.2s ease;
-  position: relative;
-}
-
-/* Наведение — чуть темнее */
-input[type="radio"]:hover {
-  border-color: var(--radio-checked);
-}
-
-/* Выбранный кружок */
-input[type="radio"]:checked {
-  background-color: var(--radio-checked);
-  border-color: var(--radio-checked);
-}
-
-/* Анимация появления точки */
-input[type="radio"]:checked::after {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 8px;
-  height: 8px;
-  background: var(--radio-after);
-  border-radius: 50%;
+/* Selection */
+::selection {
+  background: var(--lesson-link);
+  color: white;
 }

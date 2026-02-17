@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Тест на определение инвестиционного профиля - узнайте свой уровень риска">
+  <meta name="keywords" content="тест на риск, инвестиционный профиль, определение риска">
   <title>Тест на профиль риска | Шпаргалка инвестора</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="script.js" defer></script>
 </head>
-
 <body>
-
   <header>
     <div class="container header-container">
       <h1 class="logo">Шпаргалка инвестора</h1>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Открыть меню">☰</button>
       <nav>
         <ul class="nav-links">
           <li><a href="index.html">Главная</a></li>
@@ -24,137 +28,266 @@
           <li><a href="contacts.html">Контакты</a></li>
         </ul>
       </nav>
-      <button id="theme-toggle" class="theme-toggle-btn">🌙 Тёмная тема</button>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Переключить тему">
+        <span>🌙</span> Тёмная
+      </button>
     </div>
   </header>
 
-<main class="container">
-  <h2>Тест на определение инвестиционного профиля</h2>
-  <p class="intro-text">Ответьте на 10 вопросов, чтобы определить свой финансовый профиль: консервативный, умеренный или агрессивный.</p>
+  <main class="container">
+    <section class="reveal">
+      <h2>📝 Тест на определение инвестиционного профиля</h2>
+      <p class="intro-text">Ответьте на 10 вопросов, чтобы определить свой финансовый профиль: консервативный, умеренный или агрессивный. Получите персональные рекомендации по распределению активов в вашем инвестиционном портфеле.</p>
+    </section>
 
-  <form id="riskForm" class="risk-form">
-
-    <!-- Вопросы -->
-    <div class="question">
-      <p>1. Каков ваш инвестиционный горизонт?</p>
-      <label><input type="radio" name="q1" value="1"> До 1 года</label>
-      <label><input type="radio" name="q1" value="2"> 1–3 года</label>
-      <label><input type="radio" name="q1" value="3"> 3–5 лет</label>
-      <label><input type="radio" name="q1" value="4"> Более 5 лет</label>
-    </div>
-
-    <div class="question">
-      <p>2. Как вы относитесь к временным потерям?</p>
-      <label><input type="radio" name="q2" value="1"> Резко отрицательно</label>
-      <label><input type="radio" name="q2" value="2"> Нейтрально</label>
-      <label><input type="radio" name="q2" value="3"> Нормально</label>
-      <label><input type="radio" name="q2" value="4"> Спокойно отношусь к сильным просадкам</label>
-    </div>
-
-    <div class="question">
-      <p>3. Есть ли у вас опыт инвестирования?</p>
-      <label><input type="radio" name="q3" value="1"> Нет</label>
-      <label><input type="radio" name="q3" value="2"> Минимальный</label>
-      <label><input type="radio" name="q3" value="3"> Средний</label>
-      <label><input type="radio" name="q3" value="4"> Большой</label>
-    </div>
-
-    <div class="question">
-      <p>4. Какую цель вы преследуете?</p>
-      <label><input type="radio" name="q4" value="1"> Сохранить деньги</label>
-      <label><input type="radio" name="q4" value="2"> Обгонять инфляцию</label>
-      <label><input type="radio" name="q4" value="3"> Умеренный рост капитала</label>
-      <label><input type="radio" name="q4" value="4"> Максимальная доходность</label>
-    </div>
-
-    <div class="question">
-      <p>5. Что вы сделаете, если портфель упадёт на 10%?</p>
-      <label><input type="radio" name="q5" value="1"> Продам всё</label>
-      <label><input type="radio" name="q5" value="2"> Уменьшу риски</label>
-      <label><input type="radio" name="q5" value="3"> Ничего</label>
-      <label><input type="radio" name="q5" value="4"> Докуплю ещё</label>
-    </div>
-
-    <div class="question">
-      <p>6. Какую часть дохода вы готовы инвестировать регулярно?</p>
-      <label><input type="radio" name="q6" value="1"> 5–10%</label>
-      <label><input type="radio" name="q6" value="2"> 10–20%</label>
-      <label><input type="radio" name="q6" value="3"> 20–30%</label>
-      <label><input type="radio" name="q6" value="4"> Более 30%</label>
-    </div>
-
-    <div class="question">
-      <p>7. Что вам важнее?</p>
-      <label><input type="radio" name="q7" value="1"> Надёжность</label>
-      <label><input type="radio" name="q7" value="2"> Сбалансированность</label>
-      <label><input type="radio" name="q7" value="3"> Умеренный риск</label>
-      <label><input type="radio" name="q7" value="4"> Максимальная прибыль</label>
-    </div>
-
-    <div class="question">
-      <p>8. Как вы воспринимаете волатильность?</p>
-      <label><input type="radio" name="q8" value="1"> Плохо</label>
-      <label><input type="radio" name="q8" value="2"> С тревогой</label>
-      <label><input type="radio" name="q8" value="3"> Нормально</label>
-      <label><input type="radio" name="q8" value="4"> Отлично</label>
-    </div>
-
-    <div class="question">
-      <p>9. Как вы распределяете сбережения?</p>
-      <label><input type="radio" name="q9" value="1"> Почти всё храню на вкладе</label>
-      <label><input type="radio" name="q9" value="2"> Вклад + немного фондов</label>
-      <label><input type="radio" name="q9" value="3"> Вклад + акции/ETF</label>
-      <label><input type="radio" name="q9" value="4"> Почти всё в акциях/ETF</label>
-    </div>
-
-    <div class="question">
-      <p>10. Что вы думаете о высокорискованных активах?</p>
-      <label><input type="radio" name="q10" value="1"> Это не для меня</label>
-      <label><input type="radio" name="q10" value="2"> Осторожно отношусь</label>
-      <label><input type="radio" name="q10" value="3"> Могу использовать частично</label>
-      <label><input type="radio" name="q10" value="4"> Готов использовать активно</label>
-    </div>
-
-    <button type="submit" class="risk-btn">Узнать профиль</button>
-  </form>
-
-  <div id="riskResult" class="risk-result"></div>
-  <div id="portfolioBlock" class="portfolio-block"></div>
-
-</main>
-
-<footer>
-  <div class="container footer-container">
-    <div class="footer-columns">
-      <div class="footer-col">
-        <h4>О проекте</h4>
-        <p>«Шпаргалка инвестора» — учебный сайт с калькуляторами, статьями и симулятором торговли для начинающих инвесторов.</p>
+    <form id="riskForm" class="risk-form reveal">
+      <!-- Вопрос 1 -->
+      <div class="question">
+        <p>1️⃣ Каков ваш инвестиционный горизонт?</p>
+        <label>
+          <input type="radio" name="q1" value="1">
+          <span>До 1 года</span>
+        </label>
+        <label>
+          <input type="radio" name="q1" value="2">
+          <span>1–3 года</span>
+        </label>
+        <label>
+          <input type="radio" name="q1" value="3">
+          <span>3–5 лет</span>
+        </label>
+        <label>
+          <input type="radio" name="q1" value="4">
+          <span>Более 5 лет</span>
+        </label>
       </div>
-      <div class="footer-col">
-        <h4>Навигация</h4>
-        <ul>
-          <li><a href="index.html">Главная</a></li>
-          <li><a href="calculators.html">Калькуляторы</a></li>
-          <li><a href="articles.html">Статьи</a></li>
-          <li><a href="trading.html">Симулятор</a></li>
-          <li><a href="risk.html">Профиль риска</a></li>
-          <li><a href="about.html">О проекте</a></li>
-          <li><a href="contacts.html">Контакты</a></li>
-        </ul>
+
+      <!-- Вопрос 2 -->
+      <div class="question">
+        <p>2️⃣ Как вы относитесь к временным потерям?</p>
+        <label>
+          <input type="radio" name="q2" value="1">
+          <span>Резко отрицательно</span>
+        </label>
+        <label>
+          <input type="radio" name="q2" value="2">
+          <span>Нейтрально</span>
+        </label>
+        <label>
+          <input type="radio" name="q2" value="3">
+          <span>Нормально</span>
+        </label>
+        <label>
+          <input type="radio" name="q2" value="4">
+          <span>Спокойно отношусь к сильным просадкам</span>
+        </label>
       </div>
-      <div class="footer-col">
-        <h4>Контакты</h4>
-        <p>Email: Chibo_bk33@top-academy.ru</p>
-        <p>Телефон: +7 (999) 123-45-67</p>
+
+      <!-- Вопрос 3 -->
+      <div class="question">
+        <p>3️⃣ Есть ли у вас опыт инвестирования?</p>
+        <label>
+          <input type="radio" name="q3" value="1">
+          <span>Нет</span>
+        </label>
+        <label>
+          <input type="radio" name="q3" value="2">
+          <span>Минимальный</span>
+        </label>
+        <label>
+          <input type="radio" name="q3" value="3">
+          <span>Средний</span>
+        </label>
+        <label>
+          <input type="radio" name="q3" value="4">
+          <span>Большой</span>
+        </label>
+      </div>
+
+      <!-- Вопрос 4 -->
+      <div class="question">
+        <p>4️⃣ Какую цель вы преследуете?</p>
+        <label>
+          <input type="radio" name="q4" value="1">
+          <span>Сохранить деньги</span>
+        </label>
+        <label>
+          <input type="radio" name="q4" value="2">
+          <span>Обгонять инфляцию</span>
+        </label>
+        <label>
+          <input type="radio" name="q4" value="3">
+          <span>Умеренный рост капитала</span>
+        </label>
+        <label>
+          <input type="radio" name="q4" value="4">
+          <span>Максимальная доходность</span>
+        </label>
+      </div>
+
+      <!-- Вопрос 5 -->
+      <div class="question">
+        <p>5️⃣ Что вы сделаете, если портфель упадёт на 10%?</p>
+        <label>
+          <input type="radio" name="q5" value="1">
+          <span>Продам всё</span>
+        </label>
+        <label>
+          <input type="radio" name="q5" value="2">
+          <span>Уменьшу риски</span>
+        </label>
+        <label>
+          <input type="radio" name="q5" value="3">
+          <span>Ничего</span>
+        </label>
+        <label>
+          <input type="radio" name="q5" value="4">
+          <span>Докуплю ещё</span>
+        </label>
+      </div>
+
+      <!-- Вопрос 6 -->
+      <div class="question">
+        <p>6️⃣ Какую часть дохода вы готовы инвестировать регулярно?</p>
+        <label>
+          <input type="radio" name="q6" value="1">
+          <span>5–10%</span>
+        </label>
+        <label>
+          <input type="radio" name="q6" value="2">
+          <span>10–20%</span>
+        </label>
+        <label>
+          <input type="radio" name="q6" value="3">
+          <span>20–30%</span>
+        </label>
+        <label>
+          <input type="radio" name="q6" value="4">
+          <span>Более 30%</span>
+        </label>
+      </div>
+
+      <!-- Вопрос 7 -->
+      <div class="question">
+        <p>7️⃣ Что вам важнее?</p>
+        <label>
+          <input type="radio" name="q7" value="1">
+          <span>Надёжность</span>
+        </label>
+        <label>
+          <input type="radio" name="q7" value="2">
+          <span>Сбалансированность</span>
+        </label>
+        <label>
+          <input type="radio" name="q7" value="3">
+          <span>Умеренный риск</span>
+        </label>
+        <label>
+          <input type="radio" name="q7" value="4">
+          <span>Максимальная прибыль</span>
+        </label>
+      </div>
+
+      <!-- Вопрос 8 -->
+      <div class="question">
+        <p>8️⃣ Как вы воспринимаете волатильность?</p>
+        <label>
+          <input type="radio" name="q8" value="1">
+          <span>Плохо</span>
+        </label>
+        <label>
+          <input type="radio" name="q8" value="2">
+          <span>С тревогой</span>
+        </label>
+        <label>
+          <input type="radio" name="q8" value="3">
+          <span>Нормально</span>
+        </label>
+        <label>
+          <input type="radio" name="q8" value="4">
+          <span>Отлично</span>
+        </label>
+      </div>
+
+      <!-- Вопрос 9 -->
+      <div class="question">
+        <p>9️⃣ Как вы распределяете сбережения?</p>
+        <label>
+          <input type="radio" name="q9" value="1">
+          <span>Почти всё храню на вкладе</span>
+        </label>
+        <label>
+          <input type="radio" name="q9" value="2">
+          <span>Вклад + немного фондов</span>
+        </label>
+        <label>
+          <input type="radio" name="q9" value="3">
+          <span>Вклад + акции/ETF</span>
+        </label>
+        <label>
+          <input type="radio" name="q9" value="4">
+          <span>Почти всё в акциях/ETF</span>
+        </label>
+      </div>
+
+      <!-- Вопрос 10 -->
+      <div class="question">
+        <p>🔟 Что вы думаете о высокорискованных активах?</p>
+        <label>
+          <input type="radio" name="q10" value="1">
+          <span>Это не для меня</span>
+        </label>
+        <label>
+          <input type="radio" name="q10" value="2">
+          <span>Осторожно отношусь</span>
+        </label>
+        <label>
+          <input type="radio" name="q10" value="3">
+          <span>Могу использовать частично</span>
+        </label>
+        <label>
+          <input type="radio" name="q10" value="4">
+          <span>Готов использовать активно</span>
+        </label>
+      </div>
+
+      <button type="submit" class="risk-btn">📊 Узнать мой профиль</button>
+    </form>
+
+    <div id="riskResult" class="risk-result"></div>
+    <div id="portfolioBlock" class="portfolio-block"></div>
+  </main>
+
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-columns">
+        <div class="footer-col">
+          <h4>О проекте</h4>
+          <p>«Шпаргалка инвестора» — учебный сайт с калькуляторами, статьями и симулятором торговли для начинающих инвесторов.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Навигация</h4>
+          <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="calculators.html">Калькуляторы</a></li>
+            <li><a href="articles.html">Статьи</a></li>
+            <li><a href="trading.html">Симулятор</a></li>
+            <li><a href="risk.html">Профиль риска</a></li>
+            <li><a href="about.html">О проекте</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Контакты</h4>
+          <p>Email: example@invest-guide.ru</p>
+          <p>Телефон: +7 (999) 123-45-67</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Шпаргалка инвестора. Все права защищены.</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Шпаргалка инвестора. Все права защищены.</p>
-    </div>
-  </div>
-</footer>
-
-
+  </footer>
 
 </body>
 </html>

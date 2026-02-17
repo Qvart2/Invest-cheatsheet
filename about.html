@@ -3,14 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="О проекте Шпаргалка инвестора - учебный сайт для начинающих инвесторов">
+  <meta name="keywords" content="о проекте, инвестиции, обучение, финансы">
   <title>О проекте | Шпаргалка инвестора</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
     <div class="container header-container">
       <h1 class="logo">Шпаргалка инвестора</h1>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Открыть меню">☰</button>
       <nav>
         <ul class="nav-links">
           <li><a href="index.html">Главная</a></li>
@@ -22,46 +28,132 @@
           <li><a href="contacts.html">Контакты</a></li>
         </ul>
       </nav>
-      <button id="theme-toggle" class="theme-toggle-btn">🌙 Тёмная тема</button>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Переключить тему">
+        <span>🌙</span> Тёмная
+      </button>
     </div>
   </header>
 
-  <main class="container reveal">
-    <h2>О проекте</h2>
-    <p>«Шпаргалка инвестора» — это учебный проект, созданный для практики и для помощи начинающим инвесторам.</p>
+  <main class="container">
+    <section class="reveal">
+      <h2>📖 О проекте</h2>
+      <p class="intro-text">«Шпаргалка инвестора» — это учебный проект, созданный для помощи начинающим инвесторам разобраться в мире финансов и инвестиций.</p>
+    </section>
+
+    <div class="about-content">
+      <!-- Карточка о проекте -->
+      <div class="about-card reveal">
+        <h3>🎯 Наша миссия</h3>
+        <p>Мы стремимся сделать финансовое образование доступным для каждого. Наш сайт предлагает простые и понятные инструменты, которые помогают новичкам освоиться в мире инвестиций без сложной терминологии и дорогостоящих курсов.</p>
+        <p>Все расчёты производятся прямо в браузере — ваши данные остаются конфиденциальными и никуда не отправляются.</p>
+      </div>
+
+      <!-- Что мы предлагаем -->
+      <div class="about-card reveal">
+        <h3>💡 Что мы предлагаем</h3>
+        <div class="features-grid">
+          <div class="feature-item">
+            <span>🧮</span>
+            <strong>Калькуляторы</strong>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">6 финансовых калькуляторов для расчёта кредитов, вкладов, ипотеки и инвестиций</p>
+          </div>
+          <div class="feature-item">
+            <span>📈</span>
+            <strong>Симулятор</strong>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Практика торговли без риска с реальным графиком и историей транзакций</p>
+          </div>
+          <div class="feature-item">
+            <span>📝</span>
+            <strong>Тест риска</strong>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Определение инвестиционного профиля и рекомендации по портфелю</p>
+          </div>
+          <div class="feature-item">
+            <span>📚</span>
+            <strong>Статьи</strong>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Учебные материалы от базовых понятий до продвинутых стратегий</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Преимущества -->
+      <div class="about-card reveal">
+        <h3>✨ Почему выбирают нас</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--form-border); display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.25rem;">🔒</span>
+            <div>
+              <strong>Безопасность</strong>
+              <p style="margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-secondary);">Все данные хранятся локально в браузере</p>
+            </div>
+          </li>
+          <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--form-border); display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.25rem;">📱</span>
+            <div>
+              <strong>Адаптивность</strong>
+              <p style="margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-secondary);">Работает на компьютере, планшете и телефоне</p>
+            </div>
+          </li>
+          <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--form-border); display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.25rem;">🌙</span>
+            <div>
+              <strong>Тёмная тема</strong>
+              <p style="margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-secondary);">Комфортная работа в любое время суток</p>
+            </div>
+          </li>
+          <li style="padding: 0.75rem 0; display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.25rem;">🎓</span>
+            <div>
+              <strong>Бесплатно</strong>
+              <p style="margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-secondary);">Все инструменты доступны без регистрации и оплаты</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Для кого это -->
+      <div class="about-card reveal">
+        <h3>👥 Для кого этот сайт</h3>
+        <p>Наш сайт идеально подходит для:</p>
+        <ul style="margin-top: 1rem;">
+          <li style="margin-bottom: 0.5rem;">Начинающих инвесторов, которые хотят разобраться в основах</li>
+          <li style="margin-bottom: 0.5rem;">Людей, планирующих взять кредит или ипотеку</li>
+          <li style="margin-bottom: 0.5rem;">Тех, кто хочет научиться инвестировать с нуля</li>
+          <li style="margin-bottom: 0.5rem;">Всех, кто интересуется личными финансами</li>
+        </ul>
+      </div>
+    </div>
   </main>
 
   <footer>
-  <div class="container footer-container">
-    <div class="footer-columns">
-      <div class="footer-col">
-        <h4>О проекте</h4>
-        <p>«Шпаргалка инвестора» — учебный сайт с калькуляторами, статьями и симулятором торговли для начинающих инвесторов.</p>
+    <div class="container footer-container">
+      <div class="footer-columns">
+        <div class="footer-col">
+          <h4>О проекте</h4>
+          <p>«Шпаргалка инвестора» — учебный сайт с калькуляторами, статьями и симулятором торговли для начинающих инвесторов.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Навигация</h4>
+          <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="calculators.html">Калькуляторы</a></li>
+            <li><a href="articles.html">Статьи</a></li>
+            <li><a href="trading.html">Симулятор</a></li>
+            <li><a href="risk.html">Профиль риска</a></li>
+            <li><a href="about.html">О проекте</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Контакты</h4>
+          <p>Email: example@invest-guide.ru</p>
+          <p>Телефон: +7 (999) 123-45-67</p>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Навигация</h4>
-        <ul>
-          <li><a href="index.html">Главная</a></li>
-          <li><a href="calculators.html">Калькуляторы</a></li>
-          <li><a href="articles.html">Статьи</a></li>
-          <li><a href="trading.html">Симулятор</a></li>
-          <li><a href="risk.html">Профиль риска</a></li>
-          <li><a href="about.html">О проекте</a></li>
-          <li><a href="contacts.html">Контакты</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Контакты</h4>
-        <p>Email: Chibo_bk33@top-academy.ru</p>
-        <p>Телефон: +7 (999) 123-45-67</p>
+      <div class="footer-bottom">
+        <p>© 2025 Шпаргалка инвестора. Все права защищены.</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Шпаргалка инвестора. Все права защищены.</p>
-    </div>
-  </div>
-</footer>
+  </footer>
 
 </body>
-
 </html>

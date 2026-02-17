@@ -3,14 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Учебные материалы | Шпаргалка инвестора</title>
+  <meta name="description" content="Учебные материалы по инвестициям и личным финансам для начинающих">
+  <meta name="keywords" content="обучение инвестициям, финансы, управление деньгами, инвестиционный портфель">
+  <title>Статьи | Шпаргалка инвестора</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
     <div class="container header-container">
       <h1 class="logo">Шпаргалка инвестора</h1>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Открыть меню">☰</button>
       <nav>
         <ul class="nav-links">
           <li><a href="index.html">Главная</a></li>
@@ -22,22 +28,26 @@
           <li><a href="contacts.html">Контакты</a></li>
         </ul>
       </nav>
-      <button id="theme-toggle" class="theme-toggle-btn">🌙 Тёмная тема</button>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Переключить тему">
+        <span>🌙</span> Тёмная
+      </button>
     </div>
   </header>
 
-  <main class="container reveal">
-    <h2>Учебные материалы по личным финансам и инвестициям</h2>
-    <p class="intro-text">
-      Раздел содержит краткие учебные материалы и шпаргалки, которые помогут разобраться в основах инвестирования,
-      накоплений и управления личными финансами. Материалы представлены в сжатой форме и ориентированы на начинающих.
-    </p>
+  <main class="container">
+    <section class="reveal">
+      <h2>📚 Учебные материалы</h2>
+      <p class="intro-text">
+        Раздел содержит краткие учебные материалы и шпаргалки, которые помогут разобраться в основах инвестирования,
+        накоплений и управления личными финансами. Материалы представлены в сжатой форме и ориентированы на начинающих.
+      </p>
+    </section>
 
     <!-- Навигация между статьями -->
-    <nav class="article-nav">
+    <nav class="article-nav reveal">
       <div class="nav-buttons">
-        <button onclick="showCategory('basics')" class="article-nav-btn active">Базовые понятия</button>
-        <button onclick="showCategory('advanced')" class="article-nav-btn">Продвинутые стратегии</button>
+        <button onclick="showCategory('basics')" class="article-nav-btn active">📖 Базовые понятия</button>
+        <button onclick="showCategory('advanced')" class="article-nav-btn">🚀 Продвинутые стратегии</button>
       </div>
     </nav>
 
@@ -202,16 +212,15 @@
         </div>
         <div class="footer-col">
           <h4>Контакты</h4>
-          <p>Email: Chibo_bk33@top-academy.ru</p>
+          <p>Email: example@invest-guide.ru</p>
           <p>Телефон: +7 (999) 123-45-67</p>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 Шпаргалка инвестора. Все права защищены.</p>
+        <p>© 2025 Шпаргалка инвестора. Все права защищены.</p>
       </div>
     </div>
   </footer>
 
 </body>
-
 </html>

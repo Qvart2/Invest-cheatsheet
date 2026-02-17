@@ -3,14 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Шпаргалка инвестора - учебный сайт с калькуляторами, статьями и симулятором торговли для начинающих инвесторов">
+  <meta name="keywords" content="инвестиции, калькуляторы, обучение, трейдинг, финансы">
+  <meta property="og:title" content="Шпаргалка инвестора">
+  <meta property="og:description" content="Учебный сайт с калькуляторами и симулятором торговли">
   <title>Шпаргалка инвестора</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
     <div class="container header-container">
       <h1 class="logo">Шпаргалка инвестора</h1>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Открыть меню">☰</button>
       <nav>
         <ul class="nav-links">
           <li><a href="index.html" class="active">Главная</a></li>
@@ -22,48 +30,107 @@
           <li><a href="contacts.html">Контакты</a></li>
         </ul>
       </nav>
-      <button id="theme-toggle" class="theme-toggle-btn">🌙 Тёмная тема</button>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Переключить тему">
+        <span>🌙</span> Тёмная
+      </button>
     </div>
   </header>
 
-  <main class="container reveal">
-    <section class="hero">
-      <h2>Добро пожаловать</h2>
-      <p>Этот сайт поможет разобраться в личных финансах и использовать простые калькуляторы для расчётов.</p>
+  <main class="container">
+    <section class="hero reveal">
+      <h2>Добро пожаловать в мир инвестиций!</h2>
+      <p>Этот сайт поможет разобраться в личных финансах и использовать простые калькуляторы для расчётов. Начните свой путь к финансовой независимости уже сегодня!</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+        <a href="calculators.html" class="btn btn-primary">🧮 Калькуляторы</a>
+        <a href="articles.html" class="btn btn-secondary">📚 Статьи</a>
+      </div>
+    </section>
+
+    <!-- Секция с быстрыми ссылками -->
+    <section class="reveal" style="margin-top: 2rem;">
+      <h2>Что вы найдёте на сайте</h2>
+      <div class="calculators-grid">
+        <div class="card">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem;">🧮 Финансовые калькуляторы</h3>
+          <p>6 различных калькуляторов: кредит, вклад, ипотека, инвестиции, сложные проценты и финансовые цели. Точные расчёты за считанные секунды.</p>
+          <a href="calculators.html" class="btn btn-secondary" style="margin-top: 0.5rem;">Перейти →</a>
+        </div>
+        <div class="card">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem;">📈 Симулятор трейдинга</h3>
+          <p>Практикуйтесь в торговле без риска. Изучайте графики, тестируйте стратегии и отслеживайте результаты в реальном времени.</p>
+          <a href="trading.html" class="btn btn-secondary" style="margin-top: 0.5rem;">Начать торговлю →</a>
+        </div>
+        <div class="card">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem;">📝 Тест на профиль риска</h3>
+          <p>Определите свой инвестиционный профиль и получите персональные рекомендации по распределению активов в портфеле.</p>
+          <a href="risk.html" class="btn btn-secondary" style="margin-top: 0.5rem;">Пройти тест →</a>
+        </div>
+        <div class="card">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem;">📚 Учебные материалы</h3>
+          <p>Базовые и продвинутые статьи об инвестировании, управлении рисками и финансовом планировании для начинающих.</p>
+          <a href="articles.html" class="btn btn-secondary" style="margin-top: 0.5rem;">Читать →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Секция преимуществ -->
+    <section class="reveal" style="margin-top: 3rem;">
+      <h2>Почему это полезно</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <span>🎯</span>
+          <strong>Точность</strong>
+          <p style="margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-secondary);">Проверенные формулы расчёта</p>
+        </div>
+        <div class="feature-item">
+          <span>🔒</span>
+          <strong>Безопасно</strong>
+          <p style="margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-secondary);">Всё работает в браузере</p>
+        </div>
+        <div class="feature-item">
+          <span>📱</span>
+          <strong>Удобно</strong>
+          <p style="margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-secondary);">Работает на мобильных</p>
+        </div>
+        <div class="feature-item">
+          <span>🌙</span>
+          <strong>Тёмная тема</strong>
+          <p style="margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--text-secondary);">Комфорт для глаз</p>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer>
-  <div class="container footer-container">
-    <div class="footer-columns">
-      <div class="footer-col">
-        <h4>О проекте</h4>
-        <p>«Шпаргалка инвестора» — учебный сайт с калькуляторами, статьями и симулятором торговли для начинающих инвесторов.</p>
+    <div class="container footer-container">
+      <div class="footer-columns">
+        <div class="footer-col">
+          <h4>О проекте</h4>
+          <p>«Шпаргалка инвестора» — учебный сайт с калькуляторами, статьями и симулятором торговли для начинающих инвесторов.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Навигация</h4>
+          <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="calculators.html">Калькуляторы</a></li>
+            <li><a href="articles.html">Статьи</a></li>
+            <li><a href="trading.html">Симулятор</a></li>
+            <li><a href="risk.html">Профиль риска</a></li>
+            <li><a href="about.html">О проекте</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Контакты</h4>
+          <p>Email: example@invest-guide.ru</p>
+          <p>Телефон: +7 (999) 123-45-67</p>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Навигация</h4>
-        <ul>
-          <li><a href="index.html">Главная</a></li>
-          <li><a href="calculators.html">Калькуляторы</a></li>
-          <li><a href="articles.html">Статьи</a></li>
-          <li><a href="trading.html">Симулятор</a></li>
-          <li><a href="risk.html">Профиль риска</a></li>
-          <li><a href="about.html">О проекте</a></li>
-          <li><a href="contacts.html">Контакты</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Контакты</h4>
-        <p>Email: Chibo_bk33@top-academy.ru</p>
-        <p>Телефон: +7 (999) 123-45-67</p>
+      <div class="footer-bottom">
+        <p>© 2025 Шпаргалка инвестора. Все права защищены.</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Шпаргалка инвестора. Все права защищены.</p>
-    </div>
-  </div>
-</footer>
+  </footer>
 
 </body>
-
 </html>

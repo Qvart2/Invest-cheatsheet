@@ -3,14 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Финансовые калькуляторы: кредит, вклад, ипотека, инвестиции, сложные проценты и финансовые цели">
+  <meta name="keywords" content="калькулятор кредита, калькулятор вклада, ипотечный калькулятор, инвестиционный калькулятор">
   <title>Калькуляторы | Шпаргалка инвестора</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
     <div class="container header-container">
       <h1 class="logo">Шпаргалка инвестора</h1>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Открыть меню">☰</button>
       <nav>
         <ul class="nav-links">
           <li><a href="index.html">Главная</a></li>
@@ -22,132 +28,135 @@
           <li><a href="contacts.html">Контакты</a></li>
         </ul>
       </nav>
-      <button id="theme-toggle" class="theme-toggle-btn">🌙 Тёмная тема</button>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Переключить тему">
+        <span>🌙</span> Тёмная
+      </button>
     </div>
   </header>
 
-  <main class="container reveal">
-    <h2>Калькуляторы</h2>
+  <main class="container">
+    <section class="reveal">
+      <h2>🧮 Финансовые калькуляторы</h2>
+      <p class="intro-text">Выберите нужный калькулятор для расчёта. Все расчёты производятся мгновенно прямо в браузере. Никаких отправок данных на сервер — ваша информация остаётся конфиденциальной.</p>
+    </section>
 
     <div class="calculators-grid">
-
       <!-- Кредитный калькулятор -->
       <section class="calc reveal">
-        <h3>Кредитный калькулятор</h3>
+        <h3>💳 Кредитный калькулятор</h3>
         <form id="creditForm">
-          <label>Сумма кредита (₽):</label>
-          <input type="number" id="amount" required>
+          <label for="amount">Сумма кредита (₽)</label>
+          <input type="number" id="amount" placeholder="Например: 500000" min="0" step="1000" required>
 
-          <label>Срок (месяцев):</label>
-          <input type="number" id="months" required>
+          <label for="months">Срок (месяцев)</label>
+          <input type="number" id="months" placeholder="Например: 24" min="1" max="600" required>
 
-          <label>Годовая ставка (%):</label>
-          <input type="number" id="rate" required step="0.1">
+          <label for="rate">Годовая ставка (%)</label>
+          <input type="number" id="rate" placeholder="Например: 12" min="0" max="100" step="0.1" required>
 
-          <button type="submit">Рассчитать</button>
+          <button type="submit">📊 Рассчитать</button>
         </form>
         <div id="result" class="result"></div>
       </section>
 
       <!-- Калькулятор вкладов -->
       <section class="calc reveal">
-        <h3>Калькулятор вкладов</h3>
+        <h3>🏦 Калькулятор вкладов</h3>
         <form id="depositForm">
-          <label>Сумма вклада (₽):</label>
-          <input type="number" id="depositAmount" required>
+          <label for="depositAmount">Сумма вклада (₽)</label>
+          <input type="number" id="depositAmount" placeholder="Например: 100000" min="0" step="1000" required>
 
-          <label>Срок (месяцев):</label>
-          <input type="number" id="depositMonths" required>
+          <label for="depositMonths">Срок (месяцев)</label>
+          <input type="number" id="depositMonths" placeholder="Например: 12" min="1" max="600" required>
 
-          <label>Годовая ставка (%):</label>
-          <input type="number" id="depositRate" required step="0.1">
+          <label for="depositRate">Годовая ставка (%)</label>
+          <input type="number" id="depositRate" placeholder="Например: 7" min="0" max="100" step="0.1" required>
 
-          <button type="submit">Рассчитать</button>
+          <button type="submit">📊 Рассчитать</button>
         </form>
         <div id="depositResult" class="result"></div>
       </section>
 
-      <!-- Калькулятор инвестиций -->
+      <!-- Ипотечный калькулятор -->
       <section class="calc reveal">
-        <h3>Калькулятор инвестиций</h3>
-        <form id="investForm">
-          <label>Начальная сумма (₽):</label>
-          <input type="number" id="investAmount" required>
-
-          <label>Ежемесячное пополнение (₽):</label>
-          <input type="number" id="investMonthly" required>
-
-          <label>Срок (лет):</label>
-          <input type="number" id="investYears" required>
-
-          <label>Среднегодовая доходность (%):</label>
-          <input type="number" id="investRate" required step="0.1">
-
-          <button type="submit">Рассчитать</button>
-        </form>
-        <div id="investResult" class="result"></div>
-      </section>
-
-      <!-- Калькулятор ипотеки -->
-      <section class="calc reveal">
-        <h3>Ипотечный калькулятор</h3>
+        <h3>🏠 Ипотечный калькулятор</h3>
         <form id="mortgageForm">
-          <label>Сумма ипотеки (₽):</label>
-          <input type="number" id="mortgageAmount" required>
+          <label for="mortgageAmount">Сумма ипотеки (₽)</label>
+          <input type="number" id="mortgageAmount" placeholder="Например: 3000000" min="0" step="10000" required>
 
-          <label>Срок (лет):</label>
-          <input type="number" id="mortgageYears" required>
+          <label for="mortgageYears">Срок (лет)</label>
+          <input type="number" id="mortgageYears" placeholder="Например: 20" min="1" max="50" required>
 
-          <label>Годовая ставка (%):</label>
-          <input type="number" id="mortgageRate" required step="0.1">
+          <label for="mortgageRate">Годовая ставка (%)</label>
+          <input type="number" id="mortgageRate" placeholder="Например: 8.5" min="0" max="100" step="0.1" required>
 
-          <button type="submit">Рассчитать</button>
+          <button type="submit">📊 Рассчитать</button>
         </form>
         <div id="mortgageResult" class="result"></div>
       </section>
 
+      <!-- Калькулятор инвестиций -->
+      <section class="calc reveal">
+        <h3>📈 Калькулятор инвестиций</h3>
+        <form id="investForm">
+          <label for="investAmount">Начальная сумма (₽)</label>
+          <input type="number" id="investAmount" placeholder="Например: 50000" min="0" step="1000">
+
+          <label for="investMonthly">Ежемесячное пополнение (₽)</label>
+          <input type="number" id="investMonthly" placeholder="Например: 10000" min="0" step="1000">
+
+          <label for="investYears">Срок (лет)</label>
+          <input type="number" id="investYears" placeholder="Например: 10" min="1" max="50" required>
+
+          <label for="investRate">Среднегодовая доходность (%)</label>
+          <input type="number" id="investRate" placeholder="Например: 12" min="0" max="100" step="0.1">
+
+          <button type="submit">📊 Рассчитать</button>
+        </form>
+        <div id="investResult" class="result"></div>
+      </section>
+
       <!-- Калькулятор сложных процентов -->
       <section class="calc reveal">
-        <h3>Калькулятор сложных процентов</h3>
+        <h3>💰 Сложные проценты</h3>
         <form id="compoundForm">
-          <label>Начальная сумма (₽):</label>
-          <input type="number" id="compoundAmount" required>
+          <label for="compoundAmount">Начальная сумма (₽)</label>
+          <input type="number" id="compoundAmount" placeholder="Например: 100000" min="0" step="1000">
 
-          <label>Ежемесячный взнос (₽):</label>
-          <input type="number" id="compoundMonthly" required>
+          <label for="compoundMonthly">Ежемесячный взнос (₽)</label>
+          <input type="number" id="compoundMonthly" placeholder="Например: 5000" min="0" step="1000">
 
-          <label>Срок (лет):</label>
-          <input type="number" id="compoundYears" required>
+          <label for="compoundYears">Срок (лет)</label>
+          <input type="number" id="compoundYears" placeholder="Например: 15" min="1" max="50" required>
 
-          <label>Годовая ставка (%):</label>
-          <input type="number" id="compoundRate" required step="0.1">
+          <label for="compoundRate">Годовая ставка (%)</label>
+          <input type="number" id="compoundRate" placeholder="Например: 10" min="0" max="100" step="0.1">
 
-          <button type="submit">Рассчитать</button>
+          <button type="submit">📊 Рассчитать</button>
         </form>
         <div id="compoundResult" class="result"></div>
       </section>
 
-      <!-- Калькулятор достижения финансовой цели -->
+      <!-- Калькулятор цели -->
       <section class="calc reveal">
-        <h3>Калькулятор достижения финансовой цели</h3>
+        <h3>🎯 Финансовая цель</h3>
         <form id="goalForm">
-          <label>Целевая сумма (₽):</label>
-          <input type="number" id="goalAmount" required>
+          <label for="goalAmount">Целевая сумма (₽)</label>
+          <input type="number" id="goalAmount" placeholder="Например: 1000000" min="0" step="1000" required>
 
-          <label>Срок достижения (лет):</label>
-          <input type="number" id="goalYears" required>
+          <label for="goalYears">Срок достижения (лет)</label>
+          <input type="number" id="goalYears" placeholder="Например: 5" min="1" max="50" required>
 
-          <label>Годовая ставка (%):</label>
-          <input type="number" id="goalRate" required step="0.1">
+          <label for="goalRate">Ожидаемая доходность (%)</label>
+          <input type="number" id="goalRate" placeholder="Например: 8" min="0" max="100" step="0.1">
 
-          <label>Имеющаяся сумма (₽):</label>
-          <input type="number" id="goalInitial" required>
+          <label for="goalInitial">Имеющаяся сумма (₽)</label>
+          <input type="number" id="goalInitial" placeholder="Например: 100000" min="0" step="1000">
 
-          <button type="submit">Рассчитать</button>
+          <button type="submit">📊 Рассчитать</button>
         </form>
         <div id="goalResult" class="result"></div>
       </section>
-
     </div>
   </main>
 
@@ -172,16 +181,15 @@
         </div>
         <div class="footer-col">
           <h4>Контакты</h4>
-          <p>Email: Chibo_bk33@top-academy.ru</p>
+          <p>Email: example@invest-guide.ru</p>
           <p>Телефон: +7 (999) 123-45-67</p>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 Шпаргалка инвестора. Все права защищены.</p>
+        <p>© 2025 Шпаргалка инвестора. Все права защищены.</p>
       </div>
     </div>
   </footer>
 
 </body>
-
 </html>
